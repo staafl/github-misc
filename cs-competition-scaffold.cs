@@ -17,7 +17,6 @@ using System.Threading;
 class Program
 {
 #if TEST
-    // const string file = @"tests\test.00{0}.in.txt"
     const string file = @"tests\test.00{0}.in.txt"
     const string test = @"
 ";
@@ -25,31 +24,22 @@ class Program
     static void Main(string[] args) {
         var reader = Console.In;
 
-#if TEST1
+#if TEST
 #warning TEST BUILD
 
         reader = new StringReader(test);
         reader.ReadLine();
+        // reader = new StreamReader(string.Format(file, 4));
         
 #endif
-
-#if TEST2
-#warning TEST BUILD
-
-        reader = new StreamReader(string.Format(file, 4));
-        
-#endif
-
-
 
 
         var read_int = () => int.Parse(reader.ReadLine());
         
         var cnt = read_int();
-        var lines = new List<string>();
         
         for(var ii = 0; ii < cnt; ++ii) {
-            lines.Add(reader.ReadLine());
+            var str = reader.ReadLine();
         }
         
         
