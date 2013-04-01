@@ -1,4 +1,4 @@
-
+// DON'T FORGET TO SET THE LANGUAGE AND PROBLEM #
 
 var Solve = function(args) {
 
@@ -16,6 +16,7 @@ var Solve = function(args) {
 var test1 = [];
 var tests = [test1];
 
+// DON'T FORGET TO SET THE LANGUAGE AND PROBLEM #
 
 
 
