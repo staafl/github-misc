@@ -1,0 +1,288 @@
+<h1>1. Visual Studio and its Interface</h1>
+
+<ul>
+<li><p>tab panes and side panes</p>
+
+<ul><li>creating new tab groups - drag window to dock target with dashed line</li>
+<li>windows in tab panes can be "pinned"</li></ul></li>
+<li><p>menu</p>
+
+<ul><li>opens dialogues and functions</li>
+<li>accessed with <code>Alt+&lt;letter&gt;</code></li>
+<li>pressing <code>Alt</code> underlines required letter (it's called "mnemonic")</li></ul></li>
+<li><p>tool windows </p>
+
+<ul><li>only one instance of each window</li>
+<li>can be docked in a tab panel, docked in the side panes or floated</li>
+<li>can be hidden or set to auto-hide</li>
+<li>most have a menu - access with <code>Shift+Alt</code></li>
+<li>several tool windows can be docked in the same side pane</li></ul></li>
+<li><p>document windows</p>
+
+<ul><li>a file opened in an editor</li>
+<li>can be docked anywhere</li>
+<li>the same file can be opened many times</li>
+<li>can be split vertically or horizontally</li></ul></li>
+<li><p>docking and floating</p>
+
+<ul><li>docked windows - in tab pane or side pane</li>
+<li>floated windows = normal OS windows - can be maximized, tiled, moved to another monitor...</li></ul></li>
+<li><p>controlling windows</p>
+
+<ul><li><em>everything</em> in VS can be done with only the keyboard - with hotkeys, the menu or the command window</li>
+<li><code>Alt+Minus</code> - menu with options - close, close all but this, copy path, auto-hide ...</li>
+<li>floated windows - <code>Alt+Space</code> - move, resize... (works with keyboard!)</li>
+<li><code>Ctrl+F4</code> - close active document window</li>
+<li><code>Shift+Esc</code> - close active tool window</li>
+<li><code>Menu -&gt; Windows -&gt; Window</code>: dialog for closing and activating specific windows </li></ul></li>
+<li><p>navigating windows and menus</p>
+
+<ul><li><code>Esc</code> - move from tool window to editor</li>
+<li><code>Ctrl+Q</code> - "quick launch" - search for menus and options in Visual Studio</li>
+<li><code>Ctrl+Alt+PgDn/Ctrl+Alt+PgUp</code> - cycle editor windows</li>
+<li><code>Ctrl+Tab</code> - navigation menu (like Windows <code>Alt+Tab</code>)</li>
+<li><code>Alt+F6/Shift+Alt+F6/Alt+F7/Shift+Alt+F7</code> - cycle tool windows</li>
+<li>all tool windows have hotkeys: Solution Explorer - <code>Ctrl+W,Ctrl+S</code>; Object Browser - <code>Ctrl+W,Ctrl+J</code></li>
+<li><code>Ctrl+Alt+Down</code> - open documents list (arrow to the right of the tab group)</li></ul></li>
+<li><p>hotkeys
+<ul><li>vary on different machines</li>
+<li>this guide uses "Visual C# 2005" scheme</li>
+<li>can be reset using <code>Menu -&gt; Tools -&gt; Import and Export Settings</code></li>
+<li>can be edited using <code>Menu -&gt; Tools -&gt; Options -&gt; Environment -&gt; Keyboard</code></li>
+<li>choose command, press hotkey in the box and press "assign"</li>
+<li>you can also search for "keyboard" in "Quick Launch"</li>
+<li>to list all currently set hotkeys: use the following command in the Powershell (NuGet) console:</p>
+
+<blockquote>
+  <p><code>$dte.Commands | ? { $_.Bindings } | % { Write-host $_.LocalizedName ';' $_.Bindings }</code></li>
+  <li>most VS hotkeys are "chords" - you press <code>Ctrl+W</code>, then <code>Ctrl+S</code>
+  usually you can also just press <code>Ctrl+W</code>, then <code>S</code></li></ul></p>
+</blockquote></li>
+<li><p>quick tips</p>
+
+<ul><li><code>F4</code> opens combo boxes - standard on windows</li>
+<li><code>Shift+Alt+Enter</code> - fullscreen</li>
+<li><code>F2</code> - standard renaming shortcut in Windows</li>
+<li><code>Alt+Enter</code> - standard "view properties" shortcut in windows</li></ul></li>
+</ul>
+
+<h1>2. File Navigation and Solution Management</h1>
+
+<ul>
+<li><p>navigation window - <code>Ctrl+,</code></p>
+
+<ul><li>searches for functions, properties, fields, files, classes, ...</li>
+<li>treats code objects and files differently</li>
+<li>use different names for files</li>
+<li>spaces = AND</li></ul></li>
+<li><p>solution explorer</p>
+
+<ul><li>tree view of project</li>
+<li>right click menu has useful options</li>
+<li><code>Ctrl+;</code> - jump to search</li>
+<li>"Show All Files"</li>
+<li><code>Shift+Alt</code> to highlight menu</li></ul></li>
+<li><p>navigation bar</p>
+
+<ul><li>left side contains classes in current file</li>
+<li>right side contains members in current class</li></ul></li>
+<li><p>go to definition - <code>F12</code></p>
+
+<ul><li>useful for inspecting definitions and documentation</li></ul></li>
+<li><p>back/next</p>
+
+<ul><li>use <code>Ctrl+Minus</code> to go back, <code>Ctrl+Shift+Minus</code> to go forward</li>
+<li>like in web browser</li></ul></li>
+<li><p>error window</p>
+
+<ul><li><code>F8/Shift+F8</code> - cycle errors</li></ul></li>
+<li><p>bookmarks</p>
+
+<ul><li>mark places in code</li>
+<li>hotkeys:
+clear bookmarks: <code>Ctrl+B, C</code>
+next bookmark: <code>Ctrl+B, N</code>
+previous bookmark: <code>Ctrl+B, P</code>
+toggle bookmark: <code>Ctrl+B, T</code>
+bookmark window: <code>Ctrl+W, B</code></li></ul></li>
+<li><p>quick tips</p>
+
+<ul><li>jump to line - <code>Ctrl+G</code></li>
+<li>jump to other side of selection - <code>Ctrl+K, A</code></li>
+<li>jump to matching brace/quotation mark/angle bracket... - <code>Ctrl+]</code>
+<ul><li>hold <code>Shift</code> to select</li></ul></li>
+<li><code>Ctrl+Up/Down</code>: scrolling with keyboard</li></ul></li>
+<li><p>task list - maintains list of tasks in the project</p>
+
+<ul><li>two types: comments and user tasks</li>
+<li>comments - every comment containing <code>TODO</code>, <code>HACK</code>, ...
+<ul><li>keywords can be set in the options</li></ul></li>
+<li>user tasks - manually</li>
+<li>make sure you've checked the right type in the task list window</li></ul></li>
+<li><p>command window</p>
+
+<ul><li>everything you can do in the IDE you can do from here!</li>
+<li>use aliases to avoid typing long commands</li></ul></li>
+</ul>
+
+<h1>3. Text Editing</h1>
+
+<ul>
+<li><p>editors</p>
+
+<ul><li>code</li>
+<li>XML</li>
+<li>visual editors</li>
+<li>binary editor</li></ul></li>
+<li><p>auto formatting</p>
+
+<ul><li>depends on being able to parse the code</li>
+<li>also removes whitespace</li>
+<li>can be done automatically on build</li>
+<li>has limitations</li></ul></li>
+<li><p><code>Menu -&gt; Edit -&gt; Advanced</code>: useful features</p>
+
+<ul><li>convert to uppercase/lowercase</li>
+<li>show whitespace</li>
+<li>comment/uncomment selection</li>
+<li>everything has hotkeys</li></ul></li>
+<li><p>code snippets</p>
+
+<ul><li><code>Ctrl+K, X</code> - insert snippet</li>
+<li><code>Ctrl+K, S</code> - surround with</li>
+<li><code>Ctrl+K, B</code> - snippet manager</li>
+<li>XML files - you can make your own snippets</li></ul></li>
+<li><p>quick tips</p>
+
+<ul><li>highlight current line - <code>Ctrl+K, U</code> (same as uncomment)</li>
+<li>transpose lines/words/characters - <code>Alt+Shift+T, Ctrl+Shift+T, Ctrl+T</code></li>
+<li>clipboard ring - <code>Ctrl+Shift+V</code></li>
+<li>insert above/below - <code>Ctrl+Enter/Ctrl+Shift+Enter</code></li></ul></li>
+<li><p>refactoring/smart edit menu</p>
+
+<ul><li>organize usings</li>
+<li>refactor</li>
+<li>generate stub code</li>
+<li><code>Ctrl+.</code> to invoke</li></ul></li>
+<li><p>Context info/IntelliSense:</p>
+
+<ul><li>consider disabling IntelliSense - the popups are distracting</li>
+<li><code>Ctrl+J</code> - invoke IntelliSense</li>
+<li>parameters info: <code>Ctrl+K, P</code></li>
+<li>quick info about highlighted symbol: <code>Ctrl+K, I</code></li></ul></li>
+<li><p>search/replace</p>
+
+<ul><li><code>Ctrl+F</code> - find</li>
+<li><code>Ctrl+H</code> - replace</li>
+<li><code>Ctrl+Shift+F/H</code> - find/replace in files
+<ul><li>regexes supported</li>
+<li>can be used from command window</li></ul></li>
+<li><code>Alt+F12</code> - "smart" search - finds references to variable/type</li>
+<li>clever search/replace can save a lot of time</li></ul></li>
+<li><p>outlining</p>
+
+<ul><li>collapses sections of code</li>
+<li>collapse to definitions</li>
+<li>toggle outlining</li>
+<li><code>Ctrl+M,H</code> - hide selection</li></ul></li>
+<li><p>rectangular selection</p>
+
+<ul><li><code>Alt+Shift+Drag</code> or <code>Alt+Shift+Arrow</code></li>
+<li>you can use it to edit a column of text</li>
+<li>you can paste into rectangular selection to replace several words at once</li>
+<li>0-width selection turns into multiple cursors - very useful sometimes</li></ul></li>
+</ul>
+
+<h1>4. Projects, Solutions, Building</h1>
+
+<ul>
+<li><p><code>.pdb</code> files - contain your source code and debugging information</p></li>
+<li><p><code>.csproj</code> - XML file</p>
+
+<ul><li>you can edit it by hand (carefully)</li>
+<li>downgrading project to earlier version of VS? Try changing the version in the XML</li></ul></li>
+<li><p><code>.sln</code> file - just lists the projects and the solution and the current build configuration</p></li>
+<li><p><code>.csproj.user</code>, <code>.suo</code> - user settings</p></li>
+<li><p>msbuild</p>
+
+<ul><li>Microsoft's build system</li>
+<li>invokes compiler, versions files, runs custom tools...</li>
+<li>can be used from command line</li>
+<li>msbuild /verbosity:diagnostic - detailed error output</li>
+<li>you can set each file's "build action" from Solution Explorer: right-click, choose "build action"</li>
+<li>you can see its output from the "Output window" when building</li></ul></li>
+<li><p>quick tips </p>
+
+<ul><li><code>Shift+F6</code> - build only current project (useful when many projects)</li>
+<li><code>Solution properties -&gt; Startup item -&gt; Current selection</code></li></ul></li>
+<li><p>Preprocessor Directives:
+<code>#if</code>, <code>#else</code>, <code>#elif</code>, <code>#endif</code>, <code>#define</code>, <code>#undef</code>, <code>#warning</code>, <code>#error</code>, <code>#line</code>, <code>#region</code>, <code>#endregion</code>, <code>#pragma warning</code>, <code>#pragma checksum</code></p></li>
+</ul>
+
+<h1>5. Advanced debugging</h1>
+
+<ul>
+<li><p>"watch"</p>
+
+<ul><li>locals - all local variables</li>
+<li>autos - recently used local variables</li>
+<li>watch windows - user-defined expressions</li>
+<li>changed expressions are highlighted in red</li>
+<li>support formatting/hexadecimal display</li></ul></li>
+<li><p>"immediate window"</p>
+
+<ul><li>invoke code in the context of the current method</li>
+<li>very useful for checking out values</li>
+<li><code>$exception</code> variable is currently active exception</li></ul></li>
+<li><p>call stack window</p>
+
+<ul><li>shows which method called which</li>
+<li>useful for complicated situations</li></ul></li>
+<li><p>advanced breakpoints - access menu with right click</p>
+
+<ul><li>contitional breakpoints</li>
+<li>hit count</li>
+<li>action when hit</li></ul></li>
+<li><p>exception helper</p>
+
+<ul><li>you can use"view detail" to inspect the current exception</li></ul></li>
+<li><p>intellitrace</p>
+
+<ul><li>allows you to "rewind" the code to figure out what went wrong</li></ul></li>
+</ul>
+
+<h1>6. Misc</h1>
+
+<ul>
+<li><p>Object browser - inspect metadata from libraries</p></li>
+<li><p>F# console - run F# code interactively (expect C# console!)</p></li>
+<li><p>in case of problems with vs</p>
+
+<ul><li>try deleting the "ComponentCache" directory</li>
+<li>try running devenv.exe with the /log parameter and check out the Visual Studio Log</li>
+<li>google or ask in the forum (attack screenshots!) :-)</li></ul></li>
+<li><p>adding files as "links" - from "add existing item", click the arrow next to "Add" and choose "add as link"</p>
+
+<ul><li>useful for <em>simple</em> sharing of code</li></ul></li>
+<li><p>we haven't covered</p>
+
+<ul><li>T4 templates - generate code using C# templates!</li>
+<li>making your own snippets (it's easy)</li>
+<li>project templates</li>
+<li>project settings</li>
+<li>integrated source control and code reviews</li>
+<li>configuration and settings</li>
+<li>nuget and package control</li>
+<li>productivity software - JustCode, etc</li>
+<li>a lot more...</li></ul></li>
+<li><p>other recommendations</p>
+
+<ul><li>clipboard ring application - ClipX
+<ul><li>very, very useful</li></ul></li>
+<li>snippet manager - snipman.exe
+<ul><li>it's something I'm working on - a simple and useful snippet manager</li>
+<li>will be released by September - watch the Academy forum :-)</li></ul></li>
+<li>running short pieces of code - LINQPad
+<ul><li>no need for a project, no need for using System, class Program, void Main</li>
+<li>just write code and execute it</li></ul></li></ul></li>
+</ul>
