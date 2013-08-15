@@ -1,3 +1,6 @@
+// todo: 
+// #define directives
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,6 +22,8 @@ class Program
         ren 1.txt All.cs
         may mess up encodings
         * */
+        
+        File.Delete("All.cs");
         
         var usingDirectives = new SortedSet<string>();
         
