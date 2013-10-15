@@ -1,0 +1,30 @@
+
+class Type
+{
+    public static readonly Type GenericPlaceholder = new Type { Name = "T", IsGenericParameter = true };
+
+    public bool IsGenericParameter { get; set; }
+    public string Name { get; set; }
+    public string FullName
+    {
+        get
+        {
+            return this.GenericParameter == null ? this.Name : this.Name + "<" + this.GenericParameter.Name + ">";
+        }
+    }
+    public Type Parent { get; set; }
+    public IEnumerable<Method> Methods { get; set; }
+    public Type GenericParameter { get; set; }
+
+    public static readonly Type Object = new Type { Name = "Object" };
+    public static readonly Type Int = new Type { Name = "int", Parent = Object };
+    public static readonly Type StackOfT = new Type { Name = "Stack", GenericParameter = GenericPlaceholder, Parent = Object,
+     Methods = new List<Method>{ new Method { Name = "Pop", ReturnType = GenericPlaceholder, GenericParameter = GenericPlaceholder, Arguments = new Type[0]} };
+}
+
+class Method
+{
+    public Type ReturnType { get; set; }
+    public IEnumerable<Type> Arguments { get; set; }
+    public Type GenericParameter { get; set; }
+}
