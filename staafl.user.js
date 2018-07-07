@@ -6,6 +6,7 @@
 // @author       staafl
 // @match        http*://*/*
 // @grant        none
+// @download     https://github.com/staafl/github-misc/raw/master/staafl.user.js
 // ==/UserScript==
 
 /* jshint esversion: 6, multistr: true */
