@@ -1,4 +1,4 @@
 staafl
 ======
 
-my miscellaneous repo
+my repo for doodads and miscellanea
