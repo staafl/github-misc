@@ -20,8 +20,9 @@
 // @grant GM_setClipboard
 // @grant GM_info
 // @grant GM_getMetadata
-// @run-at document-start
 // @download     https://github.com/staafl/github-misc/raw/master/staafl.user.js
+// @update       https://github.com/staafl/github-misc/raw/master/staafl.user.js
+// @run-at       document-end
 // ==/UserScript==
 
 /* jshint esversion: 6, multistr: true */
