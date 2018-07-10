@@ -42,7 +42,8 @@
             {
                 // UG
                 patterns: [/ultimate-guitar.com\/tab.*official/],
-                todos: [addStyle(cssUg)]
+                todos: [addStyle(cssUg)],
+                stop: true
             },
             {
                 // white
@@ -90,11 +91,15 @@
     function getCss()
     {
        let cssUg = " \
+           body, .jg5ks, ._1eAgg \
+           { \
+               background: black !important; \
+           } \
 \
            #canvas > div \
            { \
                z-index: -1 !important; \
-               background: black; \
+               background: black !important; \
            } \
 \
            #canvas > canvas:nth-child(2) \
