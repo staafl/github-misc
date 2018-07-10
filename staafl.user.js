@@ -90,10 +90,10 @@
     function getCss()
     {
        let cssUg = " \
-           body, .jg5ks, ._1eAgg \
-           { \
-               background: black !important; \
-           } \
+/*           body, .jg5ks, ._1eAgg \*/\
+/*           { \*/\
+/*               background: black !important; \*/\
+/*           } \*/\
 \
            #canvas > div \
            { \
