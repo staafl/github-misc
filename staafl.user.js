@@ -90,15 +90,11 @@
     function getCss()
     {
        let cssUg = " \
-/*           body, .jg5ks, ._1eAgg \*/\
-/*           { \*/\
-/*               background: black !important; \*/\
-/*           } \*/\
 \
            #canvas > div \
            { \
                z-index: -1 !important; \
-               background: black !important; \
+               background: black; \
            } \
 \
            #canvas > canvas:nth-child(2) \
