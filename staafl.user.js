@@ -54,6 +54,10 @@
                 // black
                 patterns: [/ultimate-guitar.com\/tab/],
                 todos: [addStyle(cssBlack)]
+            },
+            {
+                patterns: [/google.*[/]search.*q=weather[+]sofia/],
+                todos: [click("#wob_rain", 1000)]
             }
         ];
 
@@ -82,10 +86,35 @@
     }
 
     function invertImages() {
-         let images = document.querySelectorAll("img");
-         for (let image of images) {
+        const images = document.querySelectorAll("img");
+        for (let image of images) {
             image.style.filter = "invert(0%)";
         }
+    }
+
+    function click(selector, timeout) {
+        timeout = timeout || 0;
+        return function() {
+            setTimeout(function() {
+                let timer;
+
+                if (!clicker()) {
+                    timer = setInterval(clicker, 1000);
+                }
+
+                function clicker() {
+                    const element = document.querySelector(selector);
+                    if (!element) {
+                        return false;
+                    }
+                    element.click();
+                    if (timer) {
+                        clearInterval(timer);
+                    }
+                    return true;
+                }
+            }, timeout);
+        };
     }
 
     function getCss()
