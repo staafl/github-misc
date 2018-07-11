@@ -41,7 +41,10 @@
         event.preventDefault();
       }
       if (event.key === "3") {
-        click("source")
+        var src = document.getElementById("source");
+        src.tabIndex = -1;
+        src.focus();
+        src.tabIndex = 0;
         event.preventDefault();
       }
     },
