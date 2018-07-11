@@ -52,6 +52,12 @@
                 stop: false
             },
             {
+                patterns: [/https:[/][/]my.fibank.bg[/]oauth2-server[/]login/],
+                todos: [type("#username", "vnikolov89"),
+                        focus("#password")],
+                stop: false
+            },
+            {
                 // wikipedia
                 patterns: [/wikipedia/],
                 todos: [invertImages],
@@ -100,23 +106,37 @@
             image.style.filter = "invert(0%)";
         }
     }
-
-    function click(selector, timeout) {
+    
+    function type(selector, text, timeout) {
+        doToElement(selector, timeout,
+            function(e) {
+                e.value = text;
+            });
+    }
+    
+    function focus(selector, timeout) {
+        doToElement(selector, timeout,
+            function(e) {
+                e.focus();
+            });
+    }
+    
+    function doToElement(selector, timeout, func) {
         timeout = timeout || 0;
         return function() {
             setTimeout(function() {
                 let timer;
 
-                if (!clicker()) {
-                    timer = setInterval(clicker, 1000);
+                if (!doer()) {
+                    timer = setInterval(doer, 1000);
                 }
 
-                function clicker() {
+                function doer() {
                     const element = document.querySelector(selector);
                     if (!element) {
                         return false;
                     }
-                    element.click();
+                    func(element);
                     if (timer) {
                         clearInterval(timer);
                     }
@@ -124,6 +144,10 @@
                 }
             }, timeout);
         };
+    }
+
+    function click(selector, timeout) {
+        return doToElement(selector, timeout, function(e) { e.click(); });
     }
 
     function getCss()
