@@ -34,10 +34,10 @@
     let filters =
         [
             {
-                // wikipedia
-                patterns: [/wikipedia/],
-                todos: [invertImages, addStyle("i { color: #ccc !important }")],
-                stop: false
+                // black
+                patterns: [/ultimate-guitar.com\/tab/],
+                todos: [addStyle(cssBlack)],
+                stop: true
             },
             {
                 // UG
@@ -46,18 +46,27 @@
                 stop: true
             },
             {
-                // white
-                patterns: [/docs[.]glue42/],
-                todos: [addStyle(cssWhite)]
+                // anything that uses 'Care your Eyes'
+                patterns: [/.*/],
+                todos: [addStyle("i { color: #ccc !important }")],
+                stop: false
             },
             {
-                // black
-                patterns: [/ultimate-guitar.com\/tab/],
-                todos: [addStyle(cssBlack)]
+                // wikipedia
+                patterns: [/wikipedia/],
+                todos: [invertImages],
+                stop: false
+            },
+            {
+                // white
+                patterns: [/docs[.]glue42/],
+                todos: [addStyle(cssWhite)],
+                stop: false
             },
             {
                 patterns: [/google.*[/]search.*q=weather[+]sofia/],
-                todos: [click("#wob_rain", 1000)]
+                todos: [click("#wob_rain", 1000)],
+                stop: false
             }
         ];
 
