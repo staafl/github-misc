@@ -118,6 +118,7 @@
     function focus(selector, timeout) {
         return doToElement(selector, timeout,
             function(e) {
+                e.tabIndex = -1;
                 e.focus();
             });
     }
