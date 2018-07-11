@@ -108,14 +108,14 @@
     }
     
     function type(selector, text, timeout) {
-        doToElement(selector, timeout,
+        return doToElement(selector, timeout,
             function(e) {
                 e.value = text;
             });
     }
     
     function focus(selector, timeout) {
-        doToElement(selector, timeout,
+        return doToElement(selector, timeout,
             function(e) {
                 e.focus();
             });
