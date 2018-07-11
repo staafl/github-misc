@@ -54,14 +54,19 @@
             {
                 patterns: [/https:[/][/]my.fibank.bg[/]oauth2-server[/]login/],
                 todos: [type("#username", "vnikolov89"),
-                        focus("#password"),
+                        focus("#password", 200),
                         setAttribute("#submitBtn", "disabled", null)],
+                stop: false
+            },
+            {
+                patterns: [/https:[/][/]my.fibank.bg[/]EBank[/]utility[/]pay-bills[/]process-bill/],
+                todos: [fromAccount(2000)],
                 stop: false
             },
             {
                 // wikipedia
                 patterns: [/wikipedia/],
-                todos: [invertImages],
+                todos: [invertImages()],
                 stop: false
             },
             {
@@ -102,19 +107,21 @@
     }
 
     function invertImages() {
-        const images = document.querySelectorAll("img");
-        for (let image of images) {
-            image.style.filter = "invert(0%)";
+        return function() {
+            const images = document.querySelectorAll("img");
+            for (let image of images) {
+                image.style.filter = "invert(0%)";
+            }
         }
     }
-    
+
     function type(selector, text, timeout) {
         return doToElement(selector, timeout,
             function(e) {
                 e.value = text;
             });
     }
-    
+
     function focus(selector, timeout) {
         return doToElement(selector, timeout,
             function(e) {
@@ -122,14 +129,14 @@
                 e.focus();
             });
     }
-    
+
     function setAttribute(selector, attribute, value, timeout) {
         return doToElement(selector, timeout,
             function(e) {
                 e[attribute] = value;
             });
     }
-    
+
     function doToElement(selector, timeout, func) {
         timeout = timeout || 0;
         return function() {
@@ -153,6 +160,24 @@
                 }
             }, timeout);
         };
+    }
+
+
+    function fromAccount(timeout) {
+        return doToElement("#step2 > div > button", timeout,
+            function() {
+                let time = 0;
+                for (let x of document.querySelectorAll("#step2 > div > button")) {
+                    let k = x;
+                    setTimeout(
+                        function() {
+                            k.click();
+                            setTimeout(function() { document.querySelector("span.text:visible:last").click(); }, 200);
+                        },
+                        time);
+                    time += 400;
+                }
+            });
     }
 
     function click(selector, timeout) {
