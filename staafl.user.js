@@ -54,7 +54,8 @@
             {
                 patterns: [/https:[/][/]my.fibank.bg[/]oauth2-server[/]login/],
                 todos: [type("#username", "vnikolov89"),
-                        focus("#password")],
+                        focus("#password"),
+                        setAttribute("#submitBtn", "disabled", null)],
                 stop: false
             },
             {
@@ -118,6 +119,13 @@
         return doToElement(selector, timeout,
             function(e) {
                 e.focus();
+            });
+    }
+    
+    function setAttribute(selector, attribute, value, timeout) {
+        return doToElement(selector, timeout,
+            function(e) {
+                e[attribute] = value;
             });
     }
     
