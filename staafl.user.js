@@ -110,7 +110,7 @@
         return function() {
             const images = document.querySelectorAll("img");
             for (let image of images) {
-                image.style.filter = "invert(0%)";
+                image.style.filter = "invert(100%)";
             }
         }
     }
