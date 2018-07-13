@@ -121,7 +121,10 @@
         return function() {
             const images = document.querySelectorAll("img");
             for (let image of images) {
-                if (!image.classList.contains("mwe-math-fallback-image-inline")) { // skip math formulas
+                if (image.classList.contains("mwe-math-fallback-image-inline")) {
+                    image.style.filter = "invert(0%)"; // somehow this fixes math formulas
+                }
+                else {
                     image.style.filter = "invert(100%)";
                 }
             }
