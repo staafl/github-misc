@@ -121,7 +121,9 @@
         return function() {
             const images = document.querySelectorAll("img");
             for (let image of images) {
-                image.style.filter = "invert(100%)";
+                if (!image.classList.contains("mwe-math-fallback-image-inline")) { // skip math formulas
+                    image.style.filter = "invert(100%)";
+                }
             }
         }
     }
