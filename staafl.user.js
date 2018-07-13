@@ -35,7 +35,7 @@
         [
             {
                 patterns: [/www.reddit.com/],
-                todos: [redirect((location + "").replace("www.", "old.")],
+                todos: [redirect((location + "").replace("www.", "old."))],
                 stop: true
             },
             {
