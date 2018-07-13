@@ -34,6 +34,11 @@
     let filters =
         [
             {
+                patterns: [/www.reddit.com/],
+                todos: [redirect((location + "").replace("www.", "old.")],
+                stop: true
+            },
+            {
                 // black
                 patterns: [/ultimate-guitar.com\/tab/],
                 todos: [addStyle(cssBlack)],
@@ -95,6 +100,12 @@
         }
         if (matched && filter.stop) {
             break;
+        }
+    }
+
+    function redirect(where) {
+        return function() {
+            location.href = where;
         }
     }
 
