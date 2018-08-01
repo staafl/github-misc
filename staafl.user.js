@@ -34,19 +34,19 @@
     let filters =
         [
             {
-                patterns: [/www.reddit.com/],
+                patterns: [/www[.]reddit[.]com/],
                 todos: [redirect((location + "").replace("www.", "old."))],
                 stop: true
             },
             {
                 // black
-                patterns: [/ultimate-guitar.com\/tab/],
+                patterns: [/ultimate-guitar[.]com[/]tab/, /10fastfingers[.]com/],
                 todos: [addStyle(cssBlack)],
                 stop: true
             },
             {
                 // UG
-                patterns: [/ultimate-guitar.com\/tab.*official/],
+                patterns: [/ultimate-guitar[.]com[/]tab.*official/],
                 todos: [addStyle(cssUg)],
                 stop: true
             },
@@ -57,14 +57,14 @@
                 stop: false
             },
             {
-                patterns: [/https:[/][/]my.fibank.bg[/]oauth2-server[/]login/],
+                patterns: [/https:[/][/]my[.]fibank[.]bg[/]oauth2-server[/]login/],
                 todos: [type("#username", "vnikolov89"),
                         focus("#password", 200),
                         setAttribute("#submitBtn", "disabled", null)],
                 stop: false
             },
             {
-                patterns: [/https:[/][/]my.fibank.bg[/]EBank[/]utility[/]pay-bills[/]process-bill/],
+                patterns: [/https:[/][/]my[.]fibank[.]bg[/]EBank[/]utility[/]pay-bills[/]process-bill/],
                 todos: [fromAccount(2000)],
                 stop: false
             },
