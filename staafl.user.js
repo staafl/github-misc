@@ -39,15 +39,15 @@
                 stop: true
             },
             {
-                // black
-                patterns: [/ultimate-guitar[.]com[/]tab/, /10fastfingers[.]com/],
-                todos: [addStyle(cssBlack)],
-                stop: true
-            },
-            {
                 // UG
                 patterns: [/ultimate-guitar[.]com[/]tab.*official/],
                 todos: [addStyle(cssUg)],
+                stop: true
+            },
+            {
+                // black
+                patterns: [/ultimate-guitar[.]com[/]tab/, /10fastfingers[.]com/],
+                todos: [addStyle(cssBlack)],
                 stop: true
             },
             {
