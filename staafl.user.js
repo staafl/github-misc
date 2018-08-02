@@ -40,7 +40,7 @@
             },
             {
                 // UG
-                patterns: [/ultimate-guitar[.]com[/]tab.*official/],
+                patterns: [/ultimate-guitar[.]com[/]tab.*official/, /ultimate-guitar[.]com[/]tab.*pro_[0-9]/],
                 todos: [addStyle(cssUg)],
                 stop: true
             },
