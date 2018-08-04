@@ -34,6 +34,9 @@
     let filters =
         [
             {
+                patterns: [/quora[.com]/],
+                todos: [addStyle(".icon_action_bar { visibility: collapse !important; display: none !important; }")]
+            {
                 patterns: [/www[.]reddit[.]com/],
                 todos: [redirect((location + "").replace("www.", "old."))],
                 stop: true
