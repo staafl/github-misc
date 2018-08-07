@@ -35,7 +35,7 @@
         [
             {
                 patterns: [/stackoverflow/],
-                todos: [hideHotNetworkQuestions],
+                todos: [hideHotNetworkQuestions()],
                 stop: false
             },
             {
@@ -205,28 +205,43 @@
             });
     }
 
-    function hideHotNetworkQuestions() {
-        // https://meta.stackexchange.com/a/232424/395833
-        setTimeout(function() {
-            var ignore="Programming Puzzles & Code Golf, TeX - LaTeX";
+    function hideHotNetworkQuestions(timeout) {
+        return doToElement(".js-show-more.show-more", timeout || 200,
+            function(toClick) {
+                document.querySelector("#hot-network-questions").style.display = "none";
+                // https://meta.stackexchange.com/a/232424/395833
+                toClick.click();
+                setTimeout(function() {
+                    var ignore="Programming Puzzles & Code Golf, TeX - LaTeX, Aviation, Database Administrators, The Workplace, Interpersonal Skills, Personal Finance & Money, Law, Politics, Information Security";
+                    var include="Game Development, Worldbuilding, English Language & Usage"
+                    var questList=document.getElementById("hot-network-questions").getElementsByTagName("li");
+                    var curSite="";
 
-            var questList=document.getElementById("hot-network-questions").getElementsByTagName("li");
-            var curSite="";
+                    ignore=","+ignore.replace(", ",",");
+                    include=","+include.replace(", ",",");
 
-            ignore=","+ignore.replace(", ",",");
+                    for(i=0;i<questList.length;i++){
+                        curSite=questList[i].getElementsByTagName("div")[0].title;
+                        if(curSite.indexOf("Stack Exchange")>1){
+                            curSite=curSite.substring(0,curSite.length-15);
+                        }
 
-            for(i=0;i<questList.length;i++){
-                curSite=questList[i].getElementsByTagName("div")[0].title;
-                if(curSite.indexOf("Stack Exchange")>1){
-                    curSite=curSite.substring(0,curSite.length-15);
-                }
+                        if(include.indexOf(","+curSite)==-1){
+                            questList[i].style.display="none";
+                        }
+                        if(ignore.indexOf(","+curSite)>-1){
+                            questList[i].style.display="none";
+                        }
+                    }
+                    document.querySelector("#hot-network-questions").style.display = "block";
 
-                if(ignore.indexOf(","+curSite)>-1){
-                    questList[i].style.display="none";
-                }
-            }
-        }, 100);
-}
+                    document.querySelector(".js-show-more.show-more").addEventListener("click",
+                        function() {
+                            hideHotNetworkQuestions();
+                        });
+                }, 1000);
+            });
+    }
 
     function click(selector, timeout) {
         return doToElement(selector, timeout, function(e) { e.click(); });
