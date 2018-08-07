@@ -34,6 +34,11 @@
     let filters =
         [
             {
+                patterns: [/stackoverflow/],
+                todos: [hideHotNetworkQuestions],
+                stop: false
+            }
+            {
                 patterns: [/www[.]reddit[.]com/],
                 todos: [redirect((location + "").replace("www.", "old."))],
                 stop: true
@@ -195,6 +200,29 @@
                 }
             });
     }
+
+    function hideHotNetworkQuestions() {
+        // https://meta.stackexchange.com/a/232424/395833
+        setTimeout(function() {
+            var ignore="Programming Puzzles & Code Golf, TeX - LaTeX";
+
+            var questList=document.getElementById("hot-network-questions").getElementsByTagName("li");
+            var curSite="";
+
+            ignore=","+ignore.replace(", ",",");
+
+            for(i=0;i<questList.length;i++){
+                curSite=questList[i].getElementsByTagName("div")[0].title;
+                if(curSite.indexOf("Stack Exchange")>1){
+                    curSite=curSite.substring(0,curSite.length-15);
+                }
+
+                if(ignore.indexOf(","+curSite)>-1){
+                    questList[i].style.display="none";
+                }
+            }
+        }, 100);
+}
 
     function click(selector, timeout) {
         return doToElement(selector, timeout, function(e) { e.click(); });
