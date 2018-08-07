@@ -37,7 +37,11 @@
                 patterns: [/stackoverflow/],
                 todos: [hideHotNetworkQuestions],
                 stop: false
-            }
+            },
+            {
+                patterns: [/quora[.com]/],
+                todos: [addStyle(".icon_action_bar { visibility: collapse !important; display: none !important; }")]
+            },
             {
                 patterns: [/www[.]reddit[.]com/],
                 todos: [redirect((location + "").replace("www.", "old."))],
