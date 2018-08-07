@@ -206,11 +206,14 @@
     }
 
     function hideHotNetworkQuestions(timeout) {
-        return doToElement(".js-show-more.show-more", timeout || 200,
-            function(toClick) {
+        return doToElement("#feed-link", timeout || 200,
+            function() {
                 document.querySelector("#hot-network-questions").style.display = "none";
                 // https://meta.stackexchange.com/a/232424/395833
-                toClick.click();
+                var toClick = document.querySelector(".js-show-more.show-more");
+                if (toClick) {
+                    toClick.click();
+                }
                 setTimeout(function() {
                     var ignore="Programming Puzzles & Code Golf, TeX - LaTeX, Aviation, Database Administrators, The Workplace, Interpersonal Skills, Personal Finance & Money, Law, Politics, Information Security";
                     var include="Game Development, Worldbuilding, English Language & Usage"
@@ -220,16 +223,16 @@
                     ignore=","+ignore.replace(", ",",");
                     include=","+include.replace(", ",",");
 
-                    for(i=0;i<questList.length;i++){
+                    for (var i=0;i<questList.length;i++){
                         curSite=questList[i].getElementsByTagName("div")[0].title;
-                        if(curSite.indexOf("Stack Exchange")>1){
-                            curSite=curSite.substring(0,curSite.length-15);
+                        if(curSite.indexOf("Stack Exchange")>1) {
+                            curSite=curSite.substring(0, curSite.length - 15);
                         }
 
-                        if(include.indexOf(","+curSite)==-1){
+                        if(include.indexOf(","+curSite)==-1) {
                             questList[i].style.display="none";
                         }
-                        if(ignore.indexOf(","+curSite)>-1){
+                        if(ignore.indexOf(","+curSite)>-1) {
                             questList[i].style.display="none";
                         }
                     }
