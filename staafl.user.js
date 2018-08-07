@@ -238,10 +238,12 @@
                     }
                     document.querySelector("#hot-network-questions").style.display = "block";
 
-                    document.querySelector(".js-show-more.show-more").addEventListener("click",
-                        function() {
+                    if (toClick) {
+                        toClick.addEventListener("click",
+                                                 function() {
                             hideHotNetworkQuestions();
                         });
+                    }
                 }, 1000);
             });
     }
