@@ -34,7 +34,7 @@
     let filters =
         [
             {
-                patterns: [/stackoverflow/],
+                patterns: [/stackoverflow/, /stackexchange/],
                 todos: [hideHotNetworkQuestions()],
                 stop: false
             },
@@ -215,24 +215,24 @@
                     toClick.click();
                 }
                 setTimeout(function() {
-                    var ignore="Programming Puzzles & Code Golf, TeX - LaTeX, Aviation, Database Administrators, The Workplace, Interpersonal Skills, Personal Finance & Money, Law, Politics, Information Security";
-                    var include="Game Development, Worldbuilding, English Language & Usage"
+                    var ignore="Programming Puzzles & Code Golf, TeX - LaTeX, Aviation, Database Administrators";
+                    var include="Game Development, Worldbuilding, English Language & Usage, The Workplace, Interpersonal Skills, Personal Finance & Money, Law, Politics, Information Security, Writing, Stack Overflow, German Language, Cryptography"
                     var questList=document.getElementById("hot-network-questions").getElementsByTagName("li");
                     var curSite="";
 
                     ignore=","+ignore.replace(", ",",");
-                    include=","+include.replace(", ",",");
+                    include=","+include.replace(/, /g, ",");
 
-                    for (var i=0;i<questList.length;i++){
+                    for (var i=0; i<questList.length; i++) {
                         curSite=questList[i].getElementsByTagName("div")[0].title;
-                        if(curSite.indexOf("Stack Exchange")>1) {
+                        if (curSite.indexOf("Stack Exchange") > 1) {
                             curSite=curSite.substring(0, curSite.length - 15);
                         }
 
-                        if(include.indexOf(","+curSite)==-1) {
+                        if (include.indexOf(","+curSite) == -1) {
                             questList[i].style.display="none";
                         }
-                        if(ignore.indexOf(","+curSite)>-1) {
+                        if (ignore.indexOf(","+curSite) > -1) {
                             questList[i].style.display="none";
                         }
                     }
