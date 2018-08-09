@@ -90,7 +90,7 @@
                 stop: false
             },
             {
-                patterns: [/google.*[/]search.*q=weather[+]sofia/],
+                patterns: [/google.*[/]search.*q=weather/],
                 todos: [click("#wob_rain", 1000)],
                 stop: false
             }
