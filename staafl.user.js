@@ -34,10 +34,19 @@
     let filters =
         [
             {
-                patterns: [/tick42.com/],
+                patterns: [/tick42[.]com/],
                 todos: [type("#login-form-username", "vnikolov"),
                         manip("#login-form-remember-me", e => e.checked = true),
-                        focus("#login-form-password")]
+                        manip("button[type='submit']", e => e.disabled = null),
+                        focus("#login-form-password"),
+
+                        type("input[name='user']", "vnikolo"),
+                        focus("input[name='user']"),
+                        manip("#remember-me", e => e.checked = true),
+
+                        type("#j_username", "vnikolov"),
+                        focus("input[name='j_password']"),
+                    ],
             },
             {
                 patterns: [/stackoverflow/, /stackexchange/],
@@ -61,8 +70,16 @@
             },
             {
                 // black
-                patterns: [/ultimate-guitar[.]com[/]tab/, /10fastfingers[.]com/],
+                patterns: [/ultimate-guitar[.]com[/]tab//*, /10fastfingers[.]com/*/],
                 todos: [addStyle(cssBlack)],
+                stop: true
+            },
+            {
+                // black
+                patterns: [/10fastfingers[.]com/],
+                todos: [manip("#cye-workaround-body-image", e => { e.removeAttribute("style"); }),
+                       () => setInterval(() => unsafeWindow.countdown = 3600, 1000)
+                       ],
                 stop: true
             },
             {
