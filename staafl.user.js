@@ -34,6 +34,12 @@
     let filters =
         [
             {
+                patterns: [/tick42.com/],
+                todos: [type("#login-form-username", "vnikolov"),
+                        manip("#login-form-remember-me", e => e.checked = true),
+                        focus("#login-form-password")]
+            },
+            {
                 patterns: [/stackoverflow/, /stackexchange/],
                 todos: [hideHotNetworkQuestions()],
                 stop: false
@@ -138,6 +144,10 @@
                 }
             }
         }
+    }
+
+    function manip(selector, f) {
+        return doToElement(selector, null, f);
     }
 
     function type(selector, text, timeout) {
