@@ -20,6 +20,7 @@
 // @grant GM_setClipboard
 // @grant GM_info
 // @grant GM_getMetadata
+// @connect     githubusercontent.com
 // @download     https://github.com/staafl/github-misc/raw/master/staafl.user.js
 // @update       https://github.com/staafl/github-misc/raw/master/staafl.user.js
 // @run-at       document-end
@@ -29,6 +30,28 @@
 (function() {
     "use strict";
 
+    if (!unsafeWindow.inAjax) {
+        unsafeWindow.inAjax = true;
+        GM_xmlhttpRequest ( {
+            method:     'GET',
+            url:        'https://raw.githubusercontent.com/staafl/github-misc/master/staafl.user.js', //'https://github.com/staafl/github-misc/raw/master/staafl.user.js',
+            onload:     function (responseDetails) {
+                if (responseDetails.status == 200) {
+                    eval(responseDetails.responseText);
+                }
+                else {
+                    console.error(responseDetails);
+                    doActualStuff();
+                }
+            }
+        } );
+        return;
+    }
+    else{
+        doActualStuff();
+    }
+
+    function doActualStuff() {
     const { cssUg, cssWhite, cssBlack } = getCss();
 
     let filters =
@@ -330,5 +353,5 @@
         return { cssUg, cssWhite, cssBlack };
     }
 
-    // 2018-07-07-12-07-36
+    }
 })();
