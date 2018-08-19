@@ -101,7 +101,8 @@
                 // black
                 patterns: [/10fastfingers[.]com/],
                 todos: [manip("#cye-workaround-body-image", e => { e.removeAttribute("style"); }),
-                       () => setInterval(() => unsafeWindow.countdown = 3600, 1000)
+                       () => setInterval(() => unsafeWindow.countdown = 3600, 1000),
+                       addStyle("#input-row { background: unset !important; }")
                        ],
                 stop: true
             },
