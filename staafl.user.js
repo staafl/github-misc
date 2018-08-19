@@ -102,7 +102,7 @@
                 patterns: [/10fastfingers[.]com/],
                 todos: [manip("#cye-workaround-body-image", e => { e.removeAttribute("style"); }),
                        () => setInterval(() => unsafeWindow.countdown = 3600, 1000),
-                       addStyle("#input-row { background: unset !important; }")
+                       addStyle("#input-row { background: unset !important; }, #sidebar-md-lg, #speedtest-main > div:nth-child(7), #input-row > div > div:nth-child(2) { visibility: hidden !important }")
                        ],
                 stop: true
             },
