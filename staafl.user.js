@@ -34,7 +34,8 @@
         unsafeWindow.inAjax = true;
         GM_xmlhttpRequest ( {
             method:     'GET',
-            url:        'https://raw.githubusercontent.com/staafl/github-misc/master/staafl.user.js', //'https://github.com/staafl/github-misc/raw/master/staafl.user.js',
+            url:        'https://raw.githubusercontent.com/staafl/github-misc/master/staafl.user.js?timestamp=' + new Date().getTime(),
+            // 'https://github.com/staafl/github-misc/raw/master/staafl.user.js',
             onload:     function (responseDetails) {
                 if (responseDetails.status == 200) {
                     eval(responseDetails.responseText);
