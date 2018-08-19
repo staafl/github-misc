@@ -94,7 +94,7 @@
             },
             {
                 // black
-                patterns: [/ultimate-guitar[.]com[/]tab//*, /10fastfingers[.]com/*/],
+                patterns: [/ultimate-guitar[.]com[/]tab/],
                 todos: [addStyle(cssBlack)],
                 stop: true
             },
@@ -103,7 +103,7 @@
                 patterns: [/10fastfingers[.]com/],
                 todos: [manip("#cye-workaround-body-image", e => { e.removeAttribute("style"); }),
                        () => setInterval(() => unsafeWindow.countdown = 3600, 1000),
-                       addStyle("#input-row { background: unset !important; }, #sidebar-md-lg, #speedtest-main > div:nth-child(7), #input-row > div > div:nth-child(2) { visibility: hidden !important }")
+                       addStyle("#input-row { background: unset !important; } #sidebar-md-lg, #speedtest-main > div:nth-child(7), #input-row > div > div:nth-child(2) { visibility: hidden !important }")
                        ],
                 stop: true
             },
