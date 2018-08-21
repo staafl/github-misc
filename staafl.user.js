@@ -58,6 +58,11 @@
     let filters =
         [
             {
+                patterns: [/react-native-web-player/],
+                todos: [addStyle("#app { background: white !important }")],
+                stop: false
+            },
+            {
                 patterns: [/tick42[.]com/],
                 todos: [type("#login-form-username", "vnikolov"),
                         manip("#login-form-remember-me", e => e.checked = true),
