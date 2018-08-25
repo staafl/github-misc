@@ -56,7 +56,10 @@
 
         unsafeWindow.staafl = { version: "2018-08-25-21-44-06" };
 
-        function PopIt() { return "Are you sure you want to leave?"; }
+        function PopIt() { 
+            console.log("here");
+            return "Are you sure you want to leave?"; 
+        }
 
         function detectCtrl(e){
             var evtobj=window.event? event : e;
