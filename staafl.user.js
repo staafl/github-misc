@@ -54,14 +54,14 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "21-41-32" };
+        unsafeWindow.staafl = { version: "2018-08-25-21-44-06" };
 
         function PopIt() { return "Are you sure you want to leave?"; }
 
         function detectCtrl(e){
             var evtobj=window.event? event : e;
             if (evtobj.ctrlKey) {
-                unsafeWindow.onbeforeunload = function() {};
+                delete unsafeWindow.onbeforeunload;
                 console.log("down");
             }
         }
@@ -75,7 +75,7 @@
         unsafeWindow.document.onkeydown=detectCtrl;
         unsafeWindow.document.onkeyup=detectCtrlUp;
 
-        unsafeWindow.onbeforeunload = PopIt;
+        // unsafeWindow.onbeforeunload = PopIt;
         const { cssUg, cssWhite, cssBlack } = getCss();
 
         let filters =
