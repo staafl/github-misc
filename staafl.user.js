@@ -54,7 +54,7 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "21-48-31" };
+        unsafeWindow.staafl = { version: "2018-08-25-21-51-40" };
 
         var should = true;
 
@@ -74,7 +74,7 @@
             var evtobj=window.event? event : e;
             setTimeout(function() {
                 should = true;
-            }, 100);
+            }, 1000);
         }
 
         unsafeWindow.document.onkeydown=detectCtrl;
