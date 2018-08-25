@@ -69,6 +69,9 @@
                 console.log("down");
                 should = false;
             }
+            else {
+                console.log(evtobj);
+            }
         }
 
         function detectCtrlUp(e){
