@@ -54,11 +54,15 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "22" };
-        
+        unsafeWindow.staafl = { version: "23" };
+
         unsafeWindow.onbeforeunload = function() {
-            console.log(location.href);
+            if (location.href == "http://www.wall.org/~larry/")
+            {
+                return "?";
+            }
         };
+
         const { cssUg, cssWhite, cssBlack } = getCss();
 
         let filters =
