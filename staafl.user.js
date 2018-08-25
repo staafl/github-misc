@@ -54,7 +54,7 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "2018-08-25-21-32-08" };
+        unsafeWindow.staafl = { version: "21-35-51" };
 
         function PopIt() { return "Are you sure you want to leave?"; }
         function UnPopIt() { /* nothing to return */ }
@@ -64,6 +64,7 @@
             if (evtobj.altKey || evtobj.ctrlKey || evtobj.shiftKey)
                 alert("you pressed one of the 'Alt', 'Ctrl', or 'Shift' keys")
         }
+        unsafeWindow.document.onkeydown=detectspecialkeys
         unsafeWindow.document.onkeypress=detectspecialkeys
 
         unsafeWindow.onbeforeunload = PopIt;
