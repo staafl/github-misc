@@ -54,13 +54,13 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "22-10-03" };
+        unsafeWindow.staafl = { version: "22-10-04" };
 
         var should = true;
         var wasFalse = false;
 
         function PopIt() {
-            console.log(should, blah);
+            console.log(should, wasFalse);
             var toReturn = wasFalse ? undefined : should ? "Leave?" : undefined;
             if (!toReturn) {
                 wasFalse = true;
