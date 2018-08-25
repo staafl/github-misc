@@ -66,7 +66,7 @@
         function detectCtrl(e){
             var evtobj=window.event? event : e;
             if (evtobj.ctrlKey) {
-                console.log("down");
+                console.log("down: " + should);
                 should = false;
             }
             else {
@@ -78,7 +78,7 @@
             var evtobj=window.event? event : e;
             setTimeout(function() {
                 should = true;
-                console.log("up");
+                console.log("up: " + should);
             }, 1000);
         }
 
