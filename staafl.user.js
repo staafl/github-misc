@@ -61,8 +61,9 @@
 
         function PopIt() {
             console.log(should);
+            toReturn = (should && blah) ? "Leave?" : undefined;
             blah = false;
-            return (should && blah) ? "Leave?" : undefined;
+            return toReturn;
         }
 
         function detectCtrl(e){
