@@ -53,312 +53,317 @@
     }
 
     function doActualStuff() {
-    const { cssUg, cssWhite, cssBlack } = getCss();
+    
+        function PopIt() { return "Are you sure you want to leave?"; }
+        function UnPopIt() { /* nothing to return */ }
 
-    let filters =
-        [
-            {
-                patterns: [/react-native-web-player/],
-                todos: [addStyle("#app { background: white !important }")],
-                stop: false
-            },
-            {
-                patterns: [/tick42[.]com/],
-                todos: [type("#login-form-username", "vnikolov"),
-                        manip("#login-form-remember-me", e => e.checked = true),
-                        manip("button[type='submit']", e => e.disabled = null),
-                        focus("#login-form-password"),
+        window.onbeforeunload = PopIt;
+        const { cssUg, cssWhite, cssBlack } = getCss();
 
-                        type("input[name='user']", "vnikolo"),
-                        focus("input[name='user']"),
-                        manip("#remember-me", e => e.checked = true),
+        let filters =
+            [
+                {
+                    patterns: [/react-native-web-player/],
+                    todos: [addStyle("#app { background: white !important }")],
+                    stop: false
+                },
+                {
+                    patterns: [/tick42[.]com/],
+                    todos: [type("#login-form-username", "vnikolov"),
+                            manip("#login-form-remember-me", e => e.checked = true),
+                            manip("button[type='submit']", e => e.disabled = null),
+                            focus("#login-form-password"),
 
-                        type("#j_username", "vnikolov"),
-                        focus("input[name='j_password']"),
-                    ],
-            },
-            {
-                patterns: [/stackoverflow/, /stackexchange/],
-                todos: [hideHotNetworkQuestions()],
-                stop: false
-            },
-            {
-                patterns: [/quora[.com]/],
-                todos: [addStyle(".icon_action_bar { visibility: collapse !important; display: none !important; }")]
-            },
-            {
-                patterns: [/www[.]reddit[.]com/],
-                todos: [redirect((location + "").replace("www.", "old."))],
-                stop: true
-            },
-            {
-                // UG
-                patterns: [/ultimate-guitar[.]com[/]tab.*official/, /ultimate-guitar[.]com[/]tab.*pro_[0-9]/],
-                todos: [addStyle(cssUg)],
-                stop: true
-            },
-            {
-                // black
-                patterns: [/ultimate-guitar[.]com[/]tab/],
-                todos: [addStyle(cssBlack)],
-                stop: true
-            },
-            {
-                // black
-                patterns: [/10fastfingers[.]com/],
-                todos: [manip("#cye-workaround-body-image", e => { e.removeAttribute("style"); }),
-                       () => setInterval(() => unsafeWindow.countdown = 3600, 1000),
-                       addStyle("#input-row { background: unset !important; } #sidebar-md-lg, #speedtest-main > div:nth-child(7), #input-row > div > div:nth-child(2),body > div.top-first-bg { visibility: hidden !important }")
-                       ],
-                stop: true
-            },
-            {
-                // anything that uses 'Care your Eyes'
-                patterns: [/.*/],
-                todos: [addStyle("i { color: #ccc !important }")],
-                stop: false
-            },
-            {
-                patterns: [/https:[/][/]my[.]fibank[.]bg[/]oauth2-server[/]login/],
-                todos: [type("#username", "vnikolov89"),
-                        focus("#password", 200),
-                        setAttribute("#submitBtn", "disabled", null)],
-                stop: false
-            },
-            {
-                patterns: [/https:[/][/]my[.]fibank[.]bg[/]EBank[/]utility[/]pay-bills[/]process-bill/],
-                todos: [fromAccount(2000)],
-                stop: false
-            },
-            {
-                // wikipedia
-                patterns: [/wikipedia/],
-                todos: [invertImages()],
-                stop: false
-            },
-            {
-                // white
-                patterns: [/docs[.]glue42/],
-                todos: [addStyle(cssWhite)],
-                stop: false
-            },
-            {
-                patterns: [/google.*[/]search.*q=weather/],
-                todos: [click("#wob_rain", 1000)],
-                stop: false
-            }
-        ];
+                            type("input[name='user']", "vnikolo"),
+                            focus("input[name='user']"),
+                            manip("#remember-me", e => e.checked = true),
 
-    for (let filter of filters) {
-        let matched = false;
-        for (let pattern of filter.patterns) {
-            if (pattern.test(location.href)) {
-                matched = true;
-                for (let todo of filter.todos) {
-                    todo();
+                            type("#j_username", "vnikolov"),
+                            focus("input[name='j_password']"),
+                        ],
+                },
+                {
+                    patterns: [/stackoverflow/, /stackexchange/],
+                    todos: [hideHotNetworkQuestions()],
+                    stop: false
+                },
+                {
+                    patterns: [/quora[.com]/],
+                    todos: [addStyle(".icon_action_bar { visibility: collapse !important; display: none !important; }")]
+                },
+                {
+                    patterns: [/www[.]reddit[.]com/],
+                    todos: [redirect((location + "").replace("www.", "old."))],
+                    stop: true
+                },
+                {
+                    // UG
+                    patterns: [/ultimate-guitar[.]com[/]tab.*official/, /ultimate-guitar[.]com[/]tab.*pro_[0-9]/],
+                    todos: [addStyle(cssUg)],
+                    stop: true
+                },
+                {
+                    // black
+                    patterns: [/ultimate-guitar[.]com[/]tab/],
+                    todos: [addStyle(cssBlack)],
+                    stop: true
+                },
+                {
+                    // black
+                    patterns: [/10fastfingers[.]com/],
+                    todos: [manip("#cye-workaround-body-image", e => { e.removeAttribute("style"); }),
+                           () => setInterval(() => unsafeWindow.countdown = 3600, 1000),
+                           addStyle("#input-row { background: unset !important; } #sidebar-md-lg, #speedtest-main > div:nth-child(7), #input-row > div > div:nth-child(2),body > div.top-first-bg { visibility: hidden !important }")
+                           ],
+                    stop: true
+                },
+                {
+                    // anything that uses 'Care your Eyes'
+                    patterns: [/.*/],
+                    todos: [addStyle("i { color: #ccc !important }")],
+                    stop: false
+                },
+                {
+                    patterns: [/https:[/][/]my[.]fibank[.]bg[/]oauth2-server[/]login/],
+                    todos: [type("#username", "vnikolov89"),
+                            focus("#password", 200),
+                            setAttribute("#submitBtn", "disabled", null)],
+                    stop: false
+                },
+                {
+                    patterns: [/https:[/][/]my[.]fibank[.]bg[/]EBank[/]utility[/]pay-bills[/]process-bill/],
+                    todos: [fromAccount(2000)],
+                    stop: false
+                },
+                {
+                    // wikipedia
+                    patterns: [/wikipedia/],
+                    todos: [invertImages()],
+                    stop: false
+                },
+                {
+                    // white
+                    patterns: [/docs[.]glue42/],
+                    todos: [addStyle(cssWhite)],
+                    stop: false
+                },
+                {
+                    patterns: [/google.*[/]search.*q=weather/],
+                    todos: [click("#wob_rain", 1000)],
+                    stop: false
                 }
+            ];
+
+        for (let filter of filters) {
+            let matched = false;
+            for (let pattern of filter.patterns) {
+                if (pattern.test(location.href)) {
+                    matched = true;
+                    for (let todo of filter.todos) {
+                        todo();
+                    }
+                    break;
+                }
+            }
+            if (matched && filter.stop) {
                 break;
             }
         }
-        if (matched && filter.stop) {
-            break;
+
+        function redirect(where) {
+            return function() {
+                location.href = where;
+            }
         }
-    }
 
-    function redirect(where) {
-        return function() {
-            location.href = where;
+        function addStyle(style) {
+            return function() {
+                let sheet = document.createElement("style");
+                sheet.innerHTML = style;
+                document.body.appendChild(sheet);
+            };
         }
-    }
 
-    function addStyle(style) {
-        return function() {
-            let sheet = document.createElement("style");
-            sheet.innerHTML = style;
-            document.body.appendChild(sheet);
-        };
-    }
-
-    function invertImages() {
-        return function() {
-            const images = document.querySelectorAll("img");
-            for (let image of images) {
-                if (image.classList.contains("mwe-math-fallback-image-inline")) {
-                    image.style.filter = "invert(0%)"; // somehow this fixes math formulas
-                }
-                else {
-                    image.style.filter = "invert(100%)";
+        function invertImages() {
+            return function() {
+                const images = document.querySelectorAll("img");
+                for (let image of images) {
+                    if (image.classList.contains("mwe-math-fallback-image-inline")) {
+                        image.style.filter = "invert(0%)"; // somehow this fixes math formulas
+                    }
+                    else {
+                        image.style.filter = "invert(100%)";
+                    }
                 }
             }
         }
-    }
 
-    function manip(selector, f) {
-        return doToElement(selector, null, f);
-    }
+        function manip(selector, f) {
+            return doToElement(selector, null, f);
+        }
 
-    function type(selector, text, timeout) {
-        return doToElement(selector, timeout,
-            function(e) {
-                e.value = text;
-            });
-    }
+        function type(selector, text, timeout) {
+            return doToElement(selector, timeout,
+                function(e) {
+                    e.value = text;
+                });
+        }
 
-    function focus(selector, timeout) {
-        return doToElement(selector, timeout,
-            function(e) {
-                e.tabIndex = -1;
-                e.focus();
-            });
-    }
+        function focus(selector, timeout) {
+            return doToElement(selector, timeout,
+                function(e) {
+                    e.tabIndex = -1;
+                    e.focus();
+                });
+        }
 
-    function setAttribute(selector, attribute, value, timeout) {
-        return doToElement(selector, timeout,
-            function(e) {
-                e[attribute] = value;
-            });
-    }
+        function setAttribute(selector, attribute, value, timeout) {
+            return doToElement(selector, timeout,
+                function(e) {
+                    e[attribute] = value;
+                });
+        }
 
-    function doToElement(selector, timeout, func) {
-        timeout = timeout || 0;
-        return function() {
-            setTimeout(function() {
-                let timer;
-
-                if (!doer()) {
-                    timer = setInterval(doer, 1000);
-                }
-
-                function doer() {
-                    const element = document.querySelector(selector);
-                    if (!element) {
-                        return false;
-                    }
-                    func(element);
-                    if (timer) {
-                        clearInterval(timer);
-                    }
-                    return true;
-                }
-            }, timeout);
-        };
-    }
-
-
-    function fromAccount(timeout) {
-        return doToElement("#step2 > div > button", timeout,
-            function() {
-                let time = 0;
-                for (let x of document.querySelectorAll("#step2 > div > button")) {
-                    let k = x;
-                    setTimeout(
-                        function() {
-                            k.click();
-                            setTimeout(function() { document.querySelector("span.text:visible:last").click(); }, 200);
-                        },
-                        time);
-                    time += 400;
-                }
-            });
-    }
-
-    function hideHotNetworkQuestions(timeout) {
-        return doToElement("#feed-link", timeout || 200,
-            function() {
-                document.querySelector("#hot-network-questions").style.display = "none";
-                // https://meta.stackexchange.com/a/232424/395833
-                var toClick = document.querySelector(".js-show-more.show-more");
-                if (toClick) {
-                    toClick.click();
-                }
+        function doToElement(selector, timeout, func) {
+            timeout = timeout || 0;
+            return function() {
                 setTimeout(function() {
-                    var ignore="Programming Puzzles & Code Golf, TeX - LaTeX, Aviation, Database Administrators";
-                    var include="Game Development, Worldbuilding, English Language & Usage, The Workplace, Interpersonal Skills, Personal Finance & Money, Law, Politics, Information Security, Writing, Stack Overflow, German Language, Cryptography"
-                    var questList=document.getElementById("hot-network-questions").getElementsByTagName("li");
-                    var curSite="";
+                    let timer;
 
-                    ignore=","+ignore.replace(", ",",");
-                    include=","+include.replace(/, /g, ",");
-
-                    for (var i=0; i<questList.length; i++) {
-                        curSite=questList[i].getElementsByTagName("div")[0].title;
-                        if (curSite.indexOf("Stack Exchange") > 1) {
-                            curSite=curSite.substring(0, curSite.length - 15);
-                        }
-
-                        if (include.indexOf(","+curSite) == -1) {
-                            questList[i].style.display="none";
-                        }
-                        if (ignore.indexOf(","+curSite) > -1) {
-                            questList[i].style.display="none";
-                        }
+                    if (!doer()) {
+                        timer = setInterval(doer, 1000);
                     }
-                    document.querySelector("#hot-network-questions").style.display = "block";
 
+                    function doer() {
+                        const element = document.querySelector(selector);
+                        if (!element) {
+                            return false;
+                        }
+                        func(element);
+                        if (timer) {
+                            clearInterval(timer);
+                        }
+                        return true;
+                    }
+                }, timeout);
+            };
+        }
+
+
+        function fromAccount(timeout) {
+            return doToElement("#step2 > div > button", timeout,
+                function() {
+                    let time = 0;
+                    for (let x of document.querySelectorAll("#step2 > div > button")) {
+                        let k = x;
+                        setTimeout(
+                            function() {
+                                k.click();
+                                setTimeout(function() { document.querySelector("span.text:visible:last").click(); }, 200);
+                            },
+                            time);
+                        time += 400;
+                    }
+                });
+        }
+
+        function hideHotNetworkQuestions(timeout) {
+            return doToElement("#feed-link", timeout || 200,
+                function() {
+                    document.querySelector("#hot-network-questions").style.display = "none";
+                    // https://meta.stackexchange.com/a/232424/395833
+                    var toClick = document.querySelector(".js-show-more.show-more");
                     if (toClick) {
-                        toClick.addEventListener("click",
-                                                 function() {
-                            hideHotNetworkQuestions();
-                        });
+                        toClick.click();
                     }
-                }, 1000);
-            });
-    }
+                    setTimeout(function() {
+                        var ignore="Programming Puzzles & Code Golf, TeX - LaTeX, Aviation, Database Administrators";
+                        var include="Game Development, Worldbuilding, English Language & Usage, The Workplace, Interpersonal Skills, Personal Finance & Money, Law, Politics, Information Security, Writing, Stack Overflow, German Language, Cryptography"
+                        var questList=document.getElementById("hot-network-questions").getElementsByTagName("li");
+                        var curSite="";
 
-    function click(selector, timeout) {
-        return doToElement(selector, timeout, function(e) { e.click(); });
-    }
+                        ignore=","+ignore.replace(", ",",");
+                        include=","+include.replace(/, /g, ",");
 
-    function getCss()
-    {
-       let cssUg = " \
-           body, .jg5ks, ._1eAgg \
-           { \
-               background: black !important; \
-           } \
-\
-           #canvas > div \
-           { \
-               z-index: -1 !important; \
-               background: black !important; \
-           } \
-\
-           #canvas > canvas:nth-child(2) \
-           { \
-               filter: invert(100%); \
-           } \
-\
-           section, aside \
-           { \
-               background: black !important; \
-               color: white !important; \
-           }";
+                        for (var i=0; i<questList.length; i++) {
+                            curSite=questList[i].getElementsByTagName("div")[0].title;
+                            if (curSite.indexOf("Stack Exchange") > 1) {
+                                curSite=curSite.substring(0, curSite.length - 15);
+                            }
 
-        let cssWhite = " \
-            * \
-            { \
-                color: #333333 !important; \
-                background: white !important; \
-            } \
-\
-            .ace_marker-layer, .ace_cursor-layer \
-            { \
-                visibility: hidden !important; \
-            }";
+                            if (include.indexOf(","+curSite) == -1) {
+                                questList[i].style.display="none";
+                            }
+                            if (ignore.indexOf(","+curSite) > -1) {
+                                questList[i].style.display="none";
+                            }
+                        }
+                        document.querySelector("#hot-network-questions").style.display = "block";
 
-        let cssBlack = " \
-            * \
-            { \
-                color: #cccccc !important; background: black !important; \
-            } \
-\
-            .ace_marker-layer, .ace_cursor-layer \
-            { \
-                visibility: hidden !important; \
-            }";
+                        if (toClick) {
+                            toClick.addEventListener("click",
+                                                     function() {
+                                hideHotNetworkQuestions();
+                            });
+                        }
+                    }, 1000);
+                });
+        }
 
-        return { cssUg, cssWhite, cssBlack };
-    }
+        function click(selector, timeout) {
+            return doToElement(selector, timeout, function(e) { e.click(); });
+        }
+
+        function getCss()
+        {
+           let cssUg = " \
+               body, .jg5ks, ._1eAgg \
+               { \
+                   background: black !important; \
+               } \
+    \
+               #canvas > div \
+               { \
+                   z-index: -1 !important; \
+                   background: black !important; \
+               } \
+    \
+               #canvas > canvas:nth-child(2) \
+               { \
+                   filter: invert(100%); \
+               } \
+    \
+               section, aside \
+               { \
+                   background: black !important; \
+                   color: white !important; \
+               }";
+
+            let cssWhite = " \
+                * \
+                { \
+                    color: #333333 !important; \
+                    background: white !important; \
+                } \
+    \
+                .ace_marker-layer, .ace_cursor-layer \
+                { \
+                    visibility: hidden !important; \
+                }";
+
+            let cssBlack = " \
+                * \
+                { \
+                    color: #cccccc !important; background: black !important; \
+                } \
+    \
+                .ace_marker-layer, .ace_cursor-layer \
+                { \
+                    visibility: hidden !important; \
+                }";
+
+            return { cssUg, cssWhite, cssBlack };
+        }
 
     }
 })();
