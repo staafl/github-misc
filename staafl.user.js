@@ -53,11 +53,13 @@
     }
 
     function doActualStuff() {
-    
+
+        unsafeWindow.version = "2018-08-25-21-28-25";
+
         function PopIt() { return "Are you sure you want to leave?"; }
         function UnPopIt() { /* nothing to return */ }
 
-        window.onbeforeunload = PopIt;
+        unsafeWindow.onbeforeunload = PopIt;
         const { cssUg, cssWhite, cssBlack } = getCss();
 
         let filters =
