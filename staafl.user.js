@@ -56,8 +56,9 @@
 
         unsafeWindow.staafl = { version: "21-48-31" };
 
-        bool should = false;
-        function PopIt() { 
+        var should = true;
+
+        function PopIt() {
             console.log(should);
             return should ? "Leave?" : undefined;
         }
