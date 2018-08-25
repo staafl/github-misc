@@ -92,7 +92,7 @@
         unsafeWindow.document.onkeydown=detectCtrl;
         unsafeWindow.document.onkeyup=detectCtrlUp;
 
-        unsafeWindow.addEventHandler("beforeunload", PopIt);
+        unsafeWindow.addEventListener("beforeunload", PopIt);
         const { cssUg, cssWhite, cssBlack } = getCss();
 
         let filters =
