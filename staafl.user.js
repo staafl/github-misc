@@ -54,13 +54,15 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "21-51-40" };
+        unsafeWindow.staafl = { version: "2018-08-25" };
 
         var should = true;
+        var blah = true;
 
         function PopIt() {
             console.log(should);
-            return should ? "Leave?" : undefined;
+            blah = false;
+            return (should && blah) ? "Leave?" : undefined;
         }
 
         function detectCtrl(e){
@@ -77,7 +79,7 @@
         function detectCtrlUp(e){
             var evtobj=window.event? event : e;
             setTimeout(function() {
-                should = true;
+                should = blah;
                 console.log("up: " + should);
             }, 1000);
         }
