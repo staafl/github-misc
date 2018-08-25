@@ -54,7 +54,7 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "2018-08-25-21-41-07" };
+        unsafeWindow.staafl = { version: "21-41-32" };
 
         function PopIt() { return "Are you sure you want to leave?"; }
 
@@ -68,10 +68,8 @@
 
         function detectCtrlUp(e){
             var evtobj=window.event? event : e;
-            if (evtobj.ctrlKey) {
-                unsafeWindow.onbeforeunload = PopIt;
-                console.log("up");
-            }
+            unsafeWindow.onbeforeunload = PopIt;
+            console.log("up");
         }
 
         unsafeWindow.document.onkeydown=detectCtrl;
