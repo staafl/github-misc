@@ -54,25 +54,24 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "2018-08-25-21-44-06" };
+        unsafeWindow.staafl = { version: "21-48-31" };
 
+        bool should = false;
         function PopIt() { 
-            console.log("here");
-            return "Are you sure you want to leave?"; 
+            console.log(should);
+            return should ? "Leave?" : undefined;
         }
 
         function detectCtrl(e){
             var evtobj=window.event? event : e;
             if (evtobj.ctrlKey) {
-                delete unsafeWindow.onbeforeunload;
-                console.log("down");
+                should = false;
             }
         }
 
         function detectCtrlUp(e){
             var evtobj=window.event? event : e;
-            unsafeWindow.onbeforeunload = PopIt;
-            console.log("up");
+            should = true;
         }
 
         unsafeWindow.document.onkeydown=detectCtrl;
