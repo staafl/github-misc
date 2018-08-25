@@ -62,14 +62,16 @@
             var evtobj=window.event? event : e;
             if (evtobj.ctrlKey) {
                 unsafeWindow.onbeforeunload = function() {};
-                console.log("caught");
+                console.log("down");
             }
         }
 
         function detectCtrlUp(e){
             var evtobj=window.event? event : e;
-            if (evtobj.ctrlKey)
+            if (evtobj.ctrlKey) {
                 unsafeWindow.onbeforeunload = PopIt;
+                console.log("up");
+            }
         }
 
         unsafeWindow.document.onkeydown=detectCtrl;
