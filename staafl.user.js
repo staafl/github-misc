@@ -54,18 +54,24 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "21-35-51" };
+        unsafeWindow.staafl = { version: "2018-08-25-21-38-24" };
 
         function PopIt() { return "Are you sure you want to leave?"; }
-        function UnPopIt() { /* nothing to return */ }
-        
-        function detectspecialkeys(e){
-            var evtobj=window.event? event : e
-            if (evtobj.altKey || evtobj.ctrlKey || evtobj.shiftKey)
-                alert("you pressed one of the 'Alt', 'Ctrl', or 'Shift' keys")
+
+        function detectCtrl(e){
+            var evtobj=window.event? event : e;
+            if (evtobj.ctrlKey)
+                unsafeWindow.onbeforeunload = function() {};
         }
-        unsafeWindow.document.onkeydown=detectspecialkeys
-        unsafeWindow.document.onkeypress=detectspecialkeys
+
+        function detectCtrlUp(e){
+            var evtobj=window.event? event : e;
+            if (evtobj.ctrlKey)
+                unsafeWindow.onbeforeunload = PopIt;
+        }
+
+        unsafeWindow.document.onkeydown=detectCtrl;
+        unsafeWindow.document.onkeyup=detectCtrlUp;
 
         unsafeWindow.onbeforeunload = PopIt;
         const { cssUg, cssWhite, cssBlack } = getCss();
