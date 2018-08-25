@@ -60,8 +60,10 @@
 
         function detectCtrl(e){
             var evtobj=window.event? event : e;
-            if (evtobj.ctrlKey)
+            if (evtobj.ctrlKey) {
                 unsafeWindow.onbeforeunload = function() {};
+                console.log("caught");
+            }
         }
 
         function detectCtrlUp(e){
