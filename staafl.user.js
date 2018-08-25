@@ -57,12 +57,14 @@
         unsafeWindow.staafl = { version: "22-05-15" };
 
         var should = true;
-        var blah = true;
+        var wasFalse = false;
 
         function PopIt() {
-            console.log(should);
-            toReturn = (should && blah) ? "Leave?" : undefined;
-            blah = false;
+            console.log(should, blah);
+            toReturn = wasFalse ? undefined : should ? "Leave?" : undefined;
+            if (!toReturn) {
+                wasFalse = true;
+            }
             return toReturn;
         }
 
@@ -80,7 +82,7 @@
         function detectCtrlUp(e){
             var evtobj=window.event? event : e;
             setTimeout(function() {
-                should = blah;
+                should = true;
                 console.log("up: " + should);
             }, 1000);
         }
