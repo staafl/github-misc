@@ -54,45 +54,11 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "22-10-10" };
-
-        var should = true;
-        var wasFalse = false;
-
-        function PopIt(e) {
-            console.log(should, wasFalse);
-            var toReturn = wasFalse ? undefined : should ? "Leave?" : undefined;
-            if (!toReturn) {
-                wasFalse = true;
-            }
-            if (toReturn) {
-                e.preventDefault();
-            }
-        }
-
-        function detectCtrl(e){
-            var evtobj=window.event? event : e;
-            if (evtobj.ctrlKey) {
-                should = false;
-                console.log("down: " + should);
-            }
-            else {
-                console.log(evtobj);
-            }
-        }
-
-        function detectCtrlUp(e){
-            var evtobj=window.event? event : e;
-            setTimeout(function() {
-                should = true;
-                console.log("up: " + should);
-            }, 1000);
-        }
-
-        unsafeWindow.document.onkeydown=detectCtrl;
-        unsafeWindow.document.onkeyup=detectCtrlUp;
-
-        unsafeWindow.addEventListener("beforeunload", PopIt);
+        unsafeWindow.staafl = { version: "22" };
+        
+        unsafeWindow.onbeforeunload = function() {
+            console.log(location.href);
+        };
         const { cssUg, cssWhite, cssBlack } = getCss();
 
         let filters =
