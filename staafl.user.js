@@ -58,6 +58,13 @@
 
         function PopIt() { return "Are you sure you want to leave?"; }
         function UnPopIt() { /* nothing to return */ }
+        
+        function detectspecialkeys(e){
+            var evtobj=window.event? event : e
+            if (evtobj.altKey || evtobj.ctrlKey || evtobj.shiftKey)
+                alert("you pressed one of the 'Alt', 'Ctrl', or 'Shift' keys")
+        }
+        unsafeWindow.document.onkeypress=detectspecialkeys
 
         unsafeWindow.onbeforeunload = PopIt;
         const { cssUg, cssWhite, cssBlack } = getCss();
