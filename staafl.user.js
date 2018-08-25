@@ -72,7 +72,9 @@
 
         function detectCtrlUp(e){
             var evtobj=window.event? event : e;
-            should = true;
+            setTimeout(function() {
+                should = true;
+            }, 100);
         }
 
         unsafeWindow.document.onkeydown=detectCtrl;
