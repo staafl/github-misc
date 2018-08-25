@@ -54,7 +54,7 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "2018-08-25-21-38-24" };
+        unsafeWindow.staafl = { version: "21-38-24" };
 
         function PopIt() { return "Are you sure you want to leave?"; }
 
