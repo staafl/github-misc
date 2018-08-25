@@ -66,8 +66,8 @@
         function detectCtrl(e){
             var evtobj=window.event? event : e;
             if (evtobj.ctrlKey) {
-                console.log("down: " + should);
                 should = false;
+                console.log("down: " + should);
             }
             else {
                 console.log(evtobj);
