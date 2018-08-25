@@ -54,7 +54,7 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "2018-08-25-21-51-40" };
+        unsafeWindow.staafl = { version: "21-51-40" };
 
         var should = true;
 
@@ -66,6 +66,7 @@
         function detectCtrl(e){
             var evtobj=window.event? event : e;
             if (evtobj.ctrlKey) {
+                console.log("down");
                 should = false;
             }
         }
@@ -74,6 +75,7 @@
             var evtobj=window.event? event : e;
             setTimeout(function() {
                 should = true;
+                console.log("up");
             }, 1000);
         }
 
