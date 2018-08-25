@@ -54,7 +54,7 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "2018-08-25" };
+        unsafeWindow.staafl = { version: "22-05-15" };
 
         var should = true;
         var blah = true;
