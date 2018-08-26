@@ -59,8 +59,8 @@
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         unsafeWindow.onbeforeunload = function() {
-            if (wall)
-            {
+            if (wall) {
+                console.log(unsafeWindow.location.hash);
                 return "?";
             }
         };
@@ -68,7 +68,8 @@
         if (wall) {
             setInterval(function() {
                 wall = false;
-                location.reload();
+                unsafeWindow.location.hash = "#doreload";
+                unsafeWindow.location.reload();
             }, 60*1000);
         }
 
