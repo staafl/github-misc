@@ -67,6 +67,7 @@
         
         if (wall) {
             setInterval(function() {
+                wall = false;
                 location.reload();
             }, 60*1000);
         }
