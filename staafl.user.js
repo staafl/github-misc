@@ -57,7 +57,7 @@
         unsafeWindow.staafl = { version: "23" };
 
         unsafeWindow.onbeforeunload = function() {
-            if (location.href == "http://www.wall.org/~larry/")
+            if ((location.href + "").indexOf("://www.wall.org/~larry/") != -1)
             {
                 return "?";
             }
