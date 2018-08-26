@@ -69,6 +69,7 @@
         };
         
         if (wall) {
+            unsafeWindow.location.hash = "";
             setInterval(function() {
                 unsafeWindow.location.hash = "#doreload";
                 unsafeWindow.location.reload();
