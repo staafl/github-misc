@@ -54,15 +54,22 @@
 
     function doActualStuff() {
 
-// version: ["](.*?)["] => version: "#{$1+1}"
+// inc:: version: ["](.*?)["] => version: "#{$1+1}"
         unsafeWindow.staafl = { version: "25" };
 
+        var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         unsafeWindow.onbeforeunload = function() {
-            if ((location.href + "").indexOf("://www.wall.org") != -1)
+            if (wall)
             {
                 return "?";
             }
         };
+        
+        if (wall) {
+            setInterval(function() {
+                location.reload();
+            }, 60*1000);
+        }
 
         const { cssUg, cssWhite, cssBlack } = getCss();
 
