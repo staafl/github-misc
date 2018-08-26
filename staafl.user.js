@@ -61,13 +61,15 @@
         unsafeWindow.onbeforeunload = function() {
             if (wall) {
                 console.log(unsafeWindow.location.hash);
+                if (unsafeWindow.location.hash) {
+                    return undefined;
+                }
                 return "?";
             }
         };
         
         if (wall) {
             setInterval(function() {
-                wall = false;
                 unsafeWindow.location.hash = "#doreload";
                 unsafeWindow.location.reload();
             }, 60*1000);
