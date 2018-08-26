@@ -61,7 +61,7 @@
         unsafeWindow.onbeforeunload = function() {
             if (wall) {
                 console.log(unsafeWindow.location.hash);
-                if (unsafeWindow.location.hash) {
+                if (unsafeWindow.location.hash == "#doreload") {
                     return undefined;
                 }
                 return "?";
