@@ -54,7 +54,8 @@
 
     function doActualStuff() {
 
-        unsafeWindow.staafl = { version: "24" };
+// version: ["](.*?)["] => version: "#{$1+1}"
+        unsafeWindow.staafl = { version: "25" };
 
         unsafeWindow.onbeforeunload = function() {
             if ((location.href + "").indexOf("://www.wall.org") != -1)
