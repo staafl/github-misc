@@ -66,12 +66,19 @@
 //                }
                 return "?";
             };
-
+            // var x = 
             // unsafeWindow.location.hash = "";
             setInterval(function() {
+                (function() {
+                    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                    link.type = 'image/x-icon';
+                    link.rel = 'shortcut icon';
+                    link.href = 'http://www.stackoverflow.com/favicon.ico?' + Math.random();
+                    document.getElementsByTagName('head')[0].appendChild(link);
+                })();
                 // unsafeWindow.location.hash = "#doreload";
                 // unsafeWindow.location.reload();
-                unsafeWindow.document.body.innerHTML = Math.random();
+                // unsafeWindow.document.body.innerHTML = Math.random();
                 // unsafeWindow.document.write(Math.random());
             }, 1000);
         }
