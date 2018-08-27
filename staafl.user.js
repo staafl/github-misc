@@ -71,8 +71,8 @@
             setInterval(function() {
                 // unsafeWindow.location.hash = "#doreload";
                 // unsafeWindow.location.reload();
-               //  unsafeWindow.document.body.innerHTML = '';
-                unsafeWindow.document.write(Math.random());
+                unsafeWindow.document.body.innerHTML = Math.random();
+                // unsafeWindow.document.write(Math.random());
             }, 1000);
         }
 
