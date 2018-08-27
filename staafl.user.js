@@ -55,7 +55,7 @@
     function doActualStuff() {
 
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "30"};
+        unsafeWindow.staafl = { version: "31"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
