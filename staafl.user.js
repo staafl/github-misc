@@ -59,15 +59,12 @@
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
-
             unsafeWindow.onbeforeunload = function() {
-                if (wall) {
-    //                console.log(unsafeWindow.location.hash);
-    //                if (unsafeWindow.location.hash == "#doreload") {
-    //                    return undefined;
-    //                }
-                    return "?";
-                }
+//                console.log(unsafeWindow.location.hash);
+//                if (unsafeWindow.location.hash == "#doreload") {
+//                    return undefined;
+//                }
+                return "?";
             };
 
             // unsafeWindow.location.hash = "";
