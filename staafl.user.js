@@ -55,25 +55,27 @@
     function doActualStuff() {
 
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "25" };
+        unsafeWindow.staafl = { version: "30"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
-        unsafeWindow.onbeforeunload = function() {
-            if (wall) {
-                console.log(unsafeWindow.location.hash);
-                if (unsafeWindow.location.hash == "#doreload") {
-                    return undefined;
-                }
-                return "?";
-            }
-        };
-        
         if (wall) {
-            unsafeWindow.location.hash = "";
+
+            unsafeWindow.onbeforeunload = function() {
+                if (wall) {
+    //                console.log(unsafeWindow.location.hash);
+    //                if (unsafeWindow.location.hash == "#doreload") {
+    //                    return undefined;
+    //                }
+                    return "?";
+                }
+            };
+
+            // unsafeWindow.location.hash = "";
             setInterval(function() {
-                unsafeWindow.location.hash = "#doreload";
-                unsafeWindow.location.reload();
-            }, 60*1000);
+                // unsafeWindow.location.hash = "#doreload";
+                // unsafeWindow.location.reload();
+                unsafeWindow.document.write(Math.random());
+            }, 1000);
         }
 
         const { cssUg, cssWhite, cssBlack } = getCss();
