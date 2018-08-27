@@ -55,7 +55,7 @@
     function doActualStuff() {
 
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "31"};
+        unsafeWindow.staafl = { version: "33"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
@@ -72,7 +72,7 @@
                 // unsafeWindow.location.hash = "#doreload";
                 // unsafeWindow.location.reload();
                //  unsafeWindow.document.body.innerHTML = '';
-                // unsafeWindow.document.write(Math.random());
+                unsafeWindow.document.write(Math.random());
             }, 1000);
         }
 
