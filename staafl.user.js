@@ -108,6 +108,11 @@
                             focus("input[name='j_password']"),
                         ],
                 },
+                {   // Chrome Web Store
+                    patterns: [/chrome.google.com[/]webstore/],
+                    todos: [addStyle(cssBlack)],
+                    stop: true
+                },
                 {
                     patterns: [/stackoverflow/, /stackexchange/],
                     todos: [hideHotNetworkQuestions()],
