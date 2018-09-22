@@ -94,6 +94,10 @@
                     stop: false
                 },
                 {
+                    patterns: [/[/]maps[/]/, /maps[.]/],
+                    stop: true
+                },
+                {
                     patterns: [/tick42[.]com/],
                     todos: [type("#login-form-username", "vnikolov"),
                             manip("#login-form-remember-me", e => e.checked = true),
@@ -190,7 +194,7 @@
             for (let pattern of filter.patterns) {
                 if (pattern.test(location.href)) {
                     matched = true;
-                    for (let todo of filter.todos) {
+                    for (let todo of (filter.todos || [])) {
                         todo();
                     }
                     break;
