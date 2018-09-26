@@ -90,7 +90,7 @@
         let filters =
             [
                 {
-                    patterns: [/facebook[.]com$/],
+                    patterns: [/facebook[.]com[/]?$/],
                     todos: [redirect("https://www.facebook.com/messages")],
                     stop: true
                 },
