@@ -4,7 +4,8 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       staafl
-// @match        http*://*/*
+// @match        http://*/*
+// @match        https://*/*
 // @grant unsafeWindow
 // @grant GM_addStyle
 // @grant GM_getValue
