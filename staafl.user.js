@@ -86,11 +86,11 @@
         }
 
         const { cssUg, cssWhite, cssBlack } = getCss();
-
+        console.log(location.href);
         let filters =
             [
                 {
-                    patterns: [/www[.]facebook[.]com$/],
+                    patterns: [/facebook[.]com$/],
                     todos: [redirect("https://www.facebook.com/messages")],
                     stop: true
                 },
