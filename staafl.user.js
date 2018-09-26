@@ -89,6 +89,11 @@
         let filters =
             [
                 {
+                    patterns: [/www[.]facebook[.]com$/],
+                    todos: [redirect("https://www.facebook.com/messages")],
+                    stop: true
+                },
+                {
                     patterns: [/react-native-web-player/],
                     todos: [addStyle("#app { background: white !important }")],
                     stop: false
