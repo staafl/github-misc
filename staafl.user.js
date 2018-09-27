@@ -233,7 +233,8 @@
                         image.style.filter = "invert(0%)"; // somehow this fixes math formulas
                     }
                     else {
-                        image.style.filter = "invert(100%)";
+                        image.style.filter = "invert(0%)"; // 2018-09-27 - moving away from chrome
+                        // image.style.filter = "invert(100%)";
                     }
                 }
             }
