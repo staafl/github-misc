@@ -370,6 +370,7 @@
         }
         
         function stripGoogleTracking() {
+            console.log("THERE");
             var changeObserver = new MutationObserver(function(mutations) {
               mutations.forEach(function(mutation) {
                 if ((mutation.target.nodeName == 'BODY' && mutation.target.attributes.getNamedItem('id').value == 'gsr') ||
