@@ -397,7 +397,7 @@ const debug = true;
                   var matches = /url\?(url|q)=(.+?)&/.exec(oldLink);
                   if (matches != null) {
                     link.href = unescape(matches[2]);
-                    if (/reddit.com/.test(link.href)) {
+                    if (/reddit[.]com/.test(link.href)) {
                         link.href = link.href.replace("reddit.com", "old.reddit.com");
                     }
                   }
