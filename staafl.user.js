@@ -213,6 +213,7 @@
                 if (pattern.test(location.href)) {
                     matched = true;
                     for (let todo of (filter.todos || [])) {
+                        console.log(todo);
                         todo();
                     }
                     break;
