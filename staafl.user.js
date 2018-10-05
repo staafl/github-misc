@@ -33,11 +33,13 @@
 
     if (!unsafeWindow.inAjax) {
         unsafeWindow.inAjax = true;
+        var baseUrl = 'https://raw.githubusercontent.com/staafl/" + 
+            "github-misc/master/staafl.user.js?timestamp=';
         GM_xmlhttpRequest ( {
-            method:     'GET',
-            url:        'https://raw.githubusercontent.com/staafl/github-misc/master/staafl.user.js?timestamp=' + new Date().getTime(),
+            method: 'GET',
+            url: baseUrl + new Date().getTime(),
             // 'https://github.com/staafl/github-misc/raw/master/staafl.user.js',
-            onload:     function (responseDetails) {
+            onload: function (responseDetails) {
                 if (responseDetails.status == 200) {
                     eval(responseDetails.responseText);
                 }
@@ -89,6 +91,11 @@
         console.log(location.href);
         let filters =
             [
+                {
+                    patterns: [/google[.]com/],
+                    todos: [() => stripGoogleTracking],
+                    stop: false
+                },
                 {
                     patterns: [/facebook[.]com[/]?$/],
                     todos: [redirect("https://www.facebook.com/messages")],
@@ -354,6 +361,96 @@
 
         function click(selector, timeout) {
             return doToElement(selector, timeout, function(e) { e.click(); });
+        }
+        
+        function stripGoogleTracking() {
+            var changeObserver = new MutationObserver(function(mutations) {
+              mutations.forEach(function(mutation) {
+                if ((mutation.target.nodeName == 'BODY' && mutation.target.attributes.getNamedItem('id').value == 'gsr') ||
+                    (mutation.target.nodeName == 'DIV' && mutation.target.attributes.getNamedItem('id').value == 'taw')) {
+                  doIt();
+                }
+              });
+            });
+            changeObserver.observe(document.documentElement, { childList: true, subtree: true });
+
+
+            function doIt() {
+              if (debug) { console.log("doIt() called..."); }
+              var resultLinks = $x("//a[@onmousedown]", XPathResult.ORDERED_NODE_SNAPSHOT_TYPE);
+              resultLinks.forEach(function(link) {  // loop over links
+                if (link.getAttribute('onmousedown')) {
+                  link.removeAttribute('onmousedown');
+                }
+              });
+
+              resultLinks = $x("//a");
+              resultLinks.forEach(function(link) {  // loop over links
+                var oldLink = link.href;
+                if (/^http:\/\/www.google.co/.test(oldLink) || /^https:\/\/encrypted.google.co/.test(oldLink)) {
+                  var matches = /url\?(url|q)=(.+?)&/.exec(oldLink);
+                  if (matches != null) {
+                    link.href = unescape(matches[2]);
+                  }
+                } else if ((/pdf$/i).test(oldLink)) {
+                  link.href = oldLink;
+                }
+              });
+            }
+
+
+            // XPath helper, from
+            // https://wiki.greasespot.net/XPath_Helper
+            function $x() {
+              var x='';
+              var node=document;
+              var type=0;
+              var fix=true;
+              var i=0;
+              var cur;
+
+              function toArray(xp) {
+                var final=[], next;
+                while (next=xp.iterateNext()) {
+                  final.push(next);
+                }
+                return final;
+              }
+
+              while (cur=arguments[i++]) {
+                switch (typeof cur) {
+                  case "string": x+=(x=='') ? cur : " | " + cur; continue;
+                  case "number": type=cur; continue;
+                  case "object": node=cur; continue;
+                  case "boolean": fix=cur; continue;
+                }
+              }
+
+              if (fix) {
+                if (type==6) type=4;
+                if (type==7) type=5;
+              }
+
+              // selection mistake helper
+              if (!/^\//.test(x)) x="//"+x;
+
+              // context mistake helper
+              if (node!=document && !/^\./.test(x)) x="."+x;
+
+              var result=document.evaluate(x, node, null, type, null);
+              if (fix) {
+                // automatically return special type
+                switch (type) {
+                  case 1: return result.numberValue;
+                  case 2: return result.stringValue;
+                  case 3: return result.booleanValue;
+                  case 8:
+                  case 9: return result.singleNodeValue;
+                }
+              }
+
+              return fix ? toArray(result) : result;
+            }
         }
 
         function getCss()
