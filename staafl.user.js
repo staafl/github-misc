@@ -403,7 +403,7 @@ const debug = true;
                 }
                 if (/:[/][/](www[.])?reddit[.]com/.test(link.href)) {
                     console.log(link.href);
-                    link.href = link.href.replace("reddit.com", "old.reddit.com");
+                    link.href = link.href.replace(/(www[.])?reddit[.]com/, "old.reddit.com");
                 }
               });
             }
