@@ -60,6 +60,7 @@
         doActualStuff();
     }
 
+    const debug = true;
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
         unsafeWindow.staafl = { version: "34"};
