@@ -371,8 +371,9 @@ const debug = true;
         function stripGoogleTracking() {
             var changeObserver = new MutationObserver(function(mutations) {
               mutations.forEach(function(mutation) {
-                if ((mutation.target.nodeName == 'BODY' && mutation.target.attributes.getNamedItem('id').value == 'gsr') ||
-                    (mutation.target.nodeName == 'DIV' && mutation.target.attributes.getNamedItem('id').value == 'taw')) {
+                var namedItem = mutation.target.attributes.getNamedItem('id');
+                if ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
+                    (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw')) {
                   doIt();
                 }
               });
