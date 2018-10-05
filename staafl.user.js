@@ -31,8 +31,7 @@
 (function() {
     "use strict";
 
-    if (!unsafeWindow.inAjax) {
-        unsafeWindow.inAjax = true;
+    if (typeof inAjax === "undefined") {
         var baseUrl = "https://raw.githubusercontent.com/staafl/" + 
             "github-misc/master/staafl.user.js?timestamp=";
         GM_xmlhttpRequest ( {
@@ -42,7 +41,7 @@
             onload: function (responseDetails) {
                 if (responseDetails.status == 200) {
                     try {
-                        eval(responseDetails.responseText);
+                        eval("const inAjax = true;\n" + responseDetails.responseText);
                     }
                     catch (e) {
                         console.error(e);
