@@ -61,7 +61,6 @@
     }
 
     function doActualStuff() {
-        console.log("HERE111" + inAjax);
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
         unsafeWindow.staafl = { version: "34"};
 
@@ -98,7 +97,7 @@
             [
                 {
                     patterns: [/google[.]com/],
-                    todos: [function() { console.log("BLAH"); return stripGoogleTracking; }],
+                    todos: [stripGoogleTracking],
                     stop: false
                 },
                 {
@@ -210,7 +209,6 @@
         for (let filter of filters) {
             let matched = false;
             for (let pattern of filter.patterns) {
-                console.log(pattern);
                 if (pattern.test(location.href)) {
                     matched = true;
                     for (let todo of (filter.todos || [])) {
@@ -370,7 +368,6 @@
         }
         
         function stripGoogleTracking() {
-            console.log("THERE");
             var changeObserver = new MutationObserver(function(mutations) {
               mutations.forEach(function(mutation) {
                 if ((mutation.target.nodeName == 'BODY' && mutation.target.attributes.getNamedItem('id').value == 'gsr') ||
