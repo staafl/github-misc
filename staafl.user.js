@@ -210,10 +210,10 @@
         for (let filter of filters) {
             let matched = false;
             for (let pattern of filter.patterns) {
+                console.log(pattern);
                 if (pattern.test(location.href)) {
                     matched = true;
                     for (let todo of (filter.todos || [])) {
-                        console.log(todo);
                         todo();
                     }
                     break;
