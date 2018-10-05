@@ -99,7 +99,7 @@
             [
                 {
                     patterns: [/google[.]com/],
-                    todos: [() => stripGoogleTracking],
+                    todos: [function() { return stripGoogleTracking; }],
                     stop: false
                 },
                 {
