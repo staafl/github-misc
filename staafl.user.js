@@ -145,7 +145,7 @@ const debug = true;
                     todos: [addStyle(".icon_action_bar { visibility: collapse !important; display: none !important; }")]
                 },
                 {
-                    patterns: [/www[.]reddit[.]com/],
+                    patterns: [/:[/][/](www[.])?reddit[.]com/],
                     todos: [redirect((location + "").replace("www.", "old."))],
                     stop: true
                 },
