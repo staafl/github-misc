@@ -33,15 +33,21 @@
 
     if (!unsafeWindow.inAjax) {
         unsafeWindow.inAjax = true;
-        var baseUrl = 'https://raw.githubusercontent.com/staafl/" + 
-            "github-misc/master/staafl.user.js?timestamp=';
+        var baseUrl = "https://raw.githubusercontent.com/staafl/" + 
+            "github-misc/master/staafl.user.js?timestamp=";
         GM_xmlhttpRequest ( {
             method: 'GET',
             url: baseUrl + new Date().getTime(),
             // 'https://github.com/staafl/github-misc/raw/master/staafl.user.js',
             onload: function (responseDetails) {
                 if (responseDetails.status == 200) {
-                    eval(responseDetails.responseText);
+                    try {
+                        eval(responseDetails.responseText);
+                    }
+                    catch (e) {
+                        console.error(e);
+                        doActualStuff();
+                    }
                 }
                 else {
                     console.error(responseDetails);
