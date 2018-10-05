@@ -62,7 +62,7 @@
     }
 
     function doActualStuff() {
-
+        console.log("HERE");
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
         unsafeWindow.staafl = { version: "34"};
 
