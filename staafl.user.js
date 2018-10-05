@@ -401,7 +401,7 @@ const debug = true;
                 } else if ((/pdf$/i).test(oldLink)) {
                   link.href = oldLink;
                 }
-                if (/reddit[.]com/.test(link.href)) {
+                if (/:[/][/](www[.])?reddit[.]com/.test(link.href)) {
                     console.log(link.href);
                     link.href = link.href.replace("reddit.com", "old.reddit.com");
                 }
