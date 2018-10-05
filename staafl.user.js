@@ -56,12 +56,12 @@
         } );
         return;
     }
-    else{
+    else {
         doActualStuff();
     }
 
     function doActualStuff() {
-        console.log("HERE111");
+        console.log("HERE111" + inAjax);
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
         unsafeWindow.staafl = { version: "34"};
 
@@ -98,7 +98,7 @@
             [
                 {
                     patterns: [/google[.]com/],
-                    todos: [function() { return stripGoogleTracking; }],
+                    todos: [function() { console.log("BLAH"); return stripGoogleTracking; }],
                     stop: false
                 },
                 {
