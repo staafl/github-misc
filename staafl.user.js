@@ -402,6 +402,7 @@ const debug = true;
                   link.href = oldLink;
                 }
                 if (/reddit[.]com/.test(link.href)) {
+                    console.log(link.href);
                     link.href = link.href.replace("reddit.com", "old.reddit.com");
                 }
               });
