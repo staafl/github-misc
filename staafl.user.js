@@ -28,6 +28,7 @@
 // ==/UserScript==
 
 /* jshint esversion: 6, multistr: true */
+const debug = true;
 (function() {
     "use strict";
 
@@ -60,7 +61,6 @@
         doActualStuff();
     }
 
-    const debug = true;
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
         unsafeWindow.staafl = { version: "34"};
