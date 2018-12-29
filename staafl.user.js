@@ -384,6 +384,7 @@ const debug = true;
 
         function stripTracking() {
             const isGoogle = ~window.location.href.indexOf("google");
+            console.log(isGoogle, isFacebook);
             const isFacebook = ~window.location.href.indexOf("facebook");
             var changeObserver = new MutationObserver(function(mutations) {
               let should = false;
