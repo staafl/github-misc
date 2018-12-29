@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "47"};
+        unsafeWindow.staafl = { version: "48"};
         
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -379,7 +379,8 @@ const debug = true;
                 
                 if (isGoogle) {
                     if ((nodeName == 'BODY' && id == 'gsr') ||
-                        (nodeName == 'DIV' && id == 'taw')) {
+                        (nodeName == 'DIV' && id == 'taw') ||
+                        nodeName == "A")) {
                       should = true;
                     }
                 } else if (isFacebook) {
