@@ -393,6 +393,7 @@ const debug = true;
                     (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw'))) {
                   should = true;
                 } else if (~window.location.href.indexOf("facebook")) {
+                    console.log("there");
                     if (mutation.target.nodeName == 'A' ||
                         (namedItem && namedItem.value == "content")) {
                         should = true;
