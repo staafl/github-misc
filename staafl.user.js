@@ -432,6 +432,7 @@ const debug = true;
               });
 
               resultLinks = $x("//a");
+              console.log(resultLinks);
               resultLinks.forEach(function(link) {  // loop over links
                 var oldLink = link.href;
                 if (isGoogle) {
