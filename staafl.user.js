@@ -388,19 +388,29 @@ const debug = true;
             var changeObserver = new MutationObserver(function(mutations) {
               let should = false;
               mutations.forEach(function(mutation) {
-                var namedItem = mutation.target.attributes && mutation.target.attributes.getNamedItem('id');
+
+                var namedItem =
+                    mutation.target.attributes &&
+                    mutation.target.attributes.getNamedItem('id');
+
+                const id = namedItem && namedItem.value;
+                const nodeName = mutation.target.nodeName.toUpperCase();
+                
+                console.log(nodeName, id);
+
                 if (isGoogle) {
-                    if ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
-                        (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw')) {
+                    if ((nodeName == 'BODY' && id== 'gsr') ||
+                        (nodeName == 'DIV' && id == 'taw')) {
                       should = true;
-                    } 
+                    }
                 } else if (isFacebook) {
-                    if (namedItem && namedItem.value == "globalContainer") {
+                    if (id == "globalContainer") {
                         should = true;
                     }
                 }
 
               });
+
               if (should) {
                 doIt();
               }
