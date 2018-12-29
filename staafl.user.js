@@ -399,10 +399,10 @@ const debug = true;
                 console.log(nodeName, id);
 
                 if (isGoogle) {
-                    if ((nodeName == 'BODY' && id== 'gsr') ||
-                        (nodeName == 'DIV' && id == 'taw')) {
+//                    if ((nodeName == 'BODY' && id== 'gsr') ||
+//                        (nodeName == 'DIV' && id == 'taw')) {
                       should = true;
-                    }
+//                    }
                 } else if (isFacebook) {
                     if (id == "globalContainer") {
                         should = true;
