@@ -396,7 +396,7 @@ const debug = true;
                   should = true;
                 } else if (isFacebook) {
                     console.log(mutation.target.nodeName, namedItem && namedItem.value);
-                    if (namedItem && namedItem.value == "content") {
+                    if (namedItem && namedItem.value == "globalContainer") {
                         should = true;
                     }
                 }
