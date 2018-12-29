@@ -385,7 +385,6 @@ const debug = true;
         function stripTracking() {
             const isFacebook = ~window.location.href.indexOf("facebook");
             const isGoogle = ~window.location.href.indexOf("google");
-            console.log(isGoogle, isFacebook);
             var changeObserver = new MutationObserver(function(mutations) {
               let should = false;
               mutations.forEach(function(mutation) {
@@ -396,6 +395,8 @@ const debug = true;
 
                 const id = namedItem && namedItem.value;
                 const nodeName = mutation.target.nodeName.toUpperCase();
+                
+                console.log(nodeName, id);
                 
                 if (isGoogle) {
 //                    if ((nodeName == 'BODY' && id== 'gsr') ||
@@ -418,15 +419,21 @@ const debug = true;
             const element = //isFacebook ? document.getElementById("globalContainer") :
                 document.documentElement;
 
-            changeObserver.observe(element, { childList: true, attributes: true, characterData: true, subtree: true });
+            changeObserver.observe(
+                element,
+                {
+                    childList: true,
+                    attributes: true,
+                    characterData: true,
+                    subtree: true
+                });
 
             doIt();
 
             function doIt() {
               if (debug) { console.log("doIt() called..."); }
               const resultLinks = document.getElementsByTagName("a");
-              console.log(resultLinks);
-              resultLinks.forEach(function(link) {
+              [].forEach.apply(resultLinks, [function(link) {
                 var oldLink = link.href;
                 if (link.getAttribute('onmousedown')) {
                   link.removeAttribute('onmousedown');
@@ -450,7 +457,7 @@ const debug = true;
                     // console.log(link.href);
                     link.href = link.href.replace(/(www[.])?reddit[.]com/, "old.reddit.com");
                 }
-              });
+              }]);
             }
         }
 
