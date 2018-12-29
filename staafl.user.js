@@ -406,7 +406,11 @@ const debug = true;
                 doIt();
               }
             });
-            changeObserver.observe(document.documentElement, { childList: true, attributes: true, characterData: true, subtree: true });
+            
+            const element = isFacebook ? document.getElementById("globalContainer") :
+                document.documentElement;
+                
+            changeObserver.observe(element, { childList: true, attributes: true, characterData: true, subtree: true });
 
             doIt();
 
