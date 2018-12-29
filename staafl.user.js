@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "38"};
+        unsafeWindow.staafl = { version: "39"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
