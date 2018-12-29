@@ -385,23 +385,24 @@ const debug = true;
         function stripTracking() {
             console.log("here");
             var changeObserver = new MutationObserver(function(mutations) {
+              let should = false;
               mutations.forEach(function(mutation) {
-                let should = false;
                 var namedItem = mutation.target.attributes.getNamedItem('id');
                 if (~window.location.href.indexOf("google") &&
                     ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
                     (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw'))) {
                   should = true;
                 } else if (~window.location.href.indexOf("facebook")) {
-                    if (mutation.target.nodeName == 'A') {
+                    if (mutation.target.nodeName == 'A' ||
+                        (namedItem && namedItem.value == "content")) {
                         should = true;
                     }
                 }
                 
-                if (should) {
-                  doIt();
-                }
               });
+              if (should) {
+                doIt();
+              }
             });
             changeObserver.observe(document.documentElement, { childList: true, subtree: true });
 
