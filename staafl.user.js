@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "46"};
+        unsafeWindow.staafl = { version: "47"};
         
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -374,7 +374,7 @@ const debug = true;
                 const nodeName = mutation.target.nodeName.toUpperCase();
                 
                 if (debug) {
-                    console.log(nodeName, id);
+                    // console.log(nodeName, id);
                 }
                 
                 if (isGoogle) {
