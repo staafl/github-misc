@@ -378,12 +378,12 @@ const debug = true;
                 }
                 
                 if (isGoogle) {
-                    if ((nodeName == 'BODY' && id== 'gsr') ||
+                    if ((nodeName == 'BODY' && id == 'gsr') ||
                         (nodeName == 'DIV' && id == 'taw')) {
                       should = true;
                     }
                 } else if (isFacebook) {
-                    if (id == "globalContainer") {
+                    if (id == "globalContainer" || nodeName == "A") {
                         should = true;
                     }
                 }
