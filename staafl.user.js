@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "34"};
+        unsafeWindow.staafl = { version: "35"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
@@ -102,8 +102,8 @@ const debug = true;
                     stop: false
                 },
                 {
-                    patterns: [/google[.]com/, /duckduckgo[.]com/],
-                    todos: [stripGoogleTracking],
+                    patterns: [/google[.]com/, /duckduckgo[.]com/, /facebook[.]com/],
+                    todos: [stripTracking],
                     stop: false
                 },
                 {
@@ -378,11 +378,11 @@ const debug = true;
                 if (document.title.trim().startsWith("(")) {
                     document.title = document.title.replace(/^ *[(][^)]+[)] */g, "")
                 }
-                
+
             }, 1000);
         }
 
-        function stripGoogleTracking() {
+        function stripTracking() {
             var changeObserver = new MutationObserver(function(mutations) {
               mutations.forEach(function(mutation) {
                 var namedItem = mutation.target.attributes.getNamedItem('id');
@@ -407,16 +407,21 @@ const debug = true;
               resultLinks = $x("//a");
               resultLinks.forEach(function(link) {  // loop over links
                 var oldLink = link.href;
-                if (/^http:\/\/www.google.co/.test(oldLink) || /^https:\/\/encrypted.google.co/.test(oldLink)) {
+                if (/^https?:\/\/www.google.co/.test(oldLink) || /^https:\/\/encrypted.google.co/.test(oldLink)) {
                   var matches = /url\?(url|q)=(.+?)&/.exec(oldLink);
                   if (matches != null) {
                     link.href = unescape(matches[2]);
+                  }
+                } else if (/^https?://l[.]facebook/.test(oldLink)) {
+                  var matches = /[?&]u=([^&]*)/.exec(oldLink);
+                  if (matches != null) {
+                    link.href = unescape(matches[1]);
                   }
                 } else if ((/pdf$/i).test(oldLink)) {
                   link.href = oldLink;
                 }
                 if (/:[/][/](www[.])?reddit[.]com/.test(link.href)) {
-                    console.log(link.href);
+                    // console.log(link.href);
                     link.href = link.href.replace(/(www[.])?reddit[.]com/, "old.reddit.com");
                 }
               });
