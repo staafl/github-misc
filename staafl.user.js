@@ -63,37 +63,10 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "44"};
+        unsafeWindow.staafl = { version: "45"};
         
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
-        }
-
-        var wall = (location.href + "").indexOf("://www.wall.org") != -1;
-        if (wall) {
-            unsafeWindow.onbeforeunload = function() {
-//                console.log(unsafeWindow.location.hash);
-//                if (unsafeWindow.location.hash == "#doreload") {
-//                    return undefined;
-//                }
-                return "?";
-            };
-            // var x =
-            // unsafeWindow.location.hash = "";
-            setInterval(function() {
-                (function() {
-                    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-                    link.type = 'image/x-icon';
-                    link.rel = 'shortcut icon';
-                    link.href = 'https://birthmoviesdeath.com/assets/img/favicons/favicon-16x16.png?v=E6vLOx77wd&_temp=' + Math.random();
-                    // link.href = 'http://www.stackoverflow.com/favicon.ico?' + Math.random();
-                    document.getElementsByTagName('head')[0].appendChild(link);
-                })();
-                // unsafeWindow.location.hash = "#doreload";
-                // unsafeWindow.location.reload();
-                // unsafeWindow.document.body.innerHTML = Math.random();
-                // unsafeWindow.document.write(Math.random());
-            }, 10000);
         }
 
         const { cssUg, cssWhite, cssBlack } = getCss();
