@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "36"};
+        unsafeWindow.staafl = { version: "37"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
@@ -386,10 +386,19 @@ const debug = true;
             console.log("here");
             var changeObserver = new MutationObserver(function(mutations) {
               mutations.forEach(function(mutation) {
+                let should = false;
                 var namedItem = mutation.target.attributes.getNamedItem('id');
-                if (//!~window.location.href.indexOf("google") || 
-                    (mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
-                    (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw')) {
+                if (~window.location.href.indexOf("google") &&
+                    ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
+                    (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw'))) {
+                  should = true;
+                } else if (~window.location.href.indexOf("facebook")) {
+                    if (mutation.target.nodeName == 'A') {
+                        should = true;
+                    }
+                }
+                
+                if (should) {
                   doIt();
                 }
               });
