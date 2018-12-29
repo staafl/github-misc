@@ -389,10 +389,11 @@ const debug = true;
               let should = false;
               mutations.forEach(function(mutation) {
                 var namedItem = mutation.target.attributes && mutation.target.attributes.getNamedItem('id');
-                if (isGoogle &&
-                    ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
-                    (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw'))) {
-                  should = true;
+                if (isGoogle) {
+                    if ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
+                        (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw')) {
+                      should = true;
+                    } 
                 } else if (isFacebook) {
                     if (namedItem && namedItem.value == "globalContainer") {
                         should = true;
