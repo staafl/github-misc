@@ -383,7 +383,6 @@ const debug = true;
         }
 
         function stripTracking() {
-            console.log("here");
             const isGoogle = ~window.location.href.indexOf("google");
             const isFacebook = ~window.location.href.indexOf("facebook");
             var changeObserver = new MutationObserver(function(mutations) {
@@ -395,7 +394,6 @@ const debug = true;
                     (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw'))) {
                   should = true;
                 } else if (isFacebook) {
-                    console.log(mutation.target.nodeName, namedItem && namedItem.value);
                     if (namedItem && namedItem.value == "globalContainer") {
                         should = true;
                     }
@@ -426,7 +424,6 @@ const debug = true;
               resultLinks = $x("//a");
               resultLinks.forEach(function(link) {  // loop over links
                 var oldLink = link.href;
-                console.log(oldLink);
                 if (/^https?:\/\/www.google.co/.test(oldLink) ||
                     /^https:\/\/encrypted.google.co/.test(oldLink)) {
                   var matches = /url\?(url|q)=(.+?)&/.exec(oldLink);
