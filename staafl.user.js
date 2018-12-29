@@ -33,7 +33,7 @@ const debug = true;
     "use strict";
 
     if (typeof inAjax === "undefined") {
-        var baseUrl = "https://raw.githubusercontent.com/staafl/" + 
+        var baseUrl = "https://raw.githubusercontent.com/staafl/" +
             "github-misc/master/staafl.user.js?timestamp=";
         GM_xmlhttpRequest ( {
             method: 'GET',
@@ -74,7 +74,7 @@ const debug = true;
 //                }
                 return "?";
             };
-            // var x = 
+            // var x =
             // unsafeWindow.location.hash = "";
             setInterval(function() {
                 (function() {
@@ -96,6 +96,11 @@ const debug = true;
         console.log(location.href);
         let filters =
             [
+                {
+                    patterns: [/youtube[.]com/, /youtu[.]be/],
+                    todos: [stripYouTubeNotifications],
+                    stop: false
+                },
                 {
                     patterns: [/google[.]com/, /duckduckgo[.]com/],
                     todos: [stripGoogleTracking],
@@ -367,7 +372,16 @@ const debug = true;
         function click(selector, timeout) {
             return doToElement(selector, timeout, function(e) { e.click(); });
         }
-        
+
+        function stripYouTubeNotifications() {
+            setInterval(function() {
+                if (document.title.trim().startsWith("(")) {
+                    document.title = document.title.replace(/^ *[(][^)]+[)] */g, "")
+                }
+                
+            }, 1000);
+        }
+
         function stripGoogleTracking() {
             var changeObserver = new MutationObserver(function(mutations) {
               mutations.forEach(function(mutation) {
