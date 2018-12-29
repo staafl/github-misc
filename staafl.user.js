@@ -412,7 +412,7 @@ const debug = true;
                   if (matches != null) {
                     link.href = unescape(matches[2]);
                   }
-                } else if (/^https?://l[.]facebook/.test(oldLink)) {
+                } else if (/^https?:[/][/]l[.]facebook/.test(oldLink)) {
                   var matches = /[?&]u=([^&]*)/.exec(oldLink);
                   if (matches != null) {
                     link.href = unescape(matches[1]);
