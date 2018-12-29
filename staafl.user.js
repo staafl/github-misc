@@ -396,8 +396,6 @@ const debug = true;
                 const id = namedItem && namedItem.value;
                 const nodeName = mutation.target.nodeName.toUpperCase();
                 
-                console.log(nodeName, id);
-
                 if (isGoogle) {
 //                    if ((nodeName == 'BODY' && id== 'gsr') ||
 //                        (nodeName == 'DIV' && id == 'taw')) {
