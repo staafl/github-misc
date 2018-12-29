@@ -380,7 +380,7 @@ const debug = true;
                 if (isGoogle) {
                     if ((nodeName == 'BODY' && id == 'gsr') ||
                         (nodeName == 'DIV' && id == 'taw') ||
-                        nodeName == "A")) {
+                        nodeName == "A") {
                       should = true;
                     }
                 } else if (isFacebook) {
