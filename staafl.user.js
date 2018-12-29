@@ -394,6 +394,7 @@ const debug = true;
             });
             changeObserver.observe(document.documentElement, { childList: true, subtree: true });
 
+            doIt();
 
             function doIt() {
               if (debug) { console.log("doIt() called..."); }
