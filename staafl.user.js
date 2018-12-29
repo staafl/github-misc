@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "35"};
+        unsafeWindow.staafl = { version: "36"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
@@ -383,6 +383,7 @@ const debug = true;
         }
 
         function stripTracking() {
+            console.log("here");
             var changeObserver = new MutationObserver(function(mutations) {
               mutations.forEach(function(mutation) {
                 var namedItem = mutation.target.attributes.getNamedItem('id');
