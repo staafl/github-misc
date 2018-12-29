@@ -405,7 +405,7 @@ const debug = true;
                 doIt();
               }
             });
-            changeObserver.observe(document.documentElement, { childList: true, subtree: true });
+            changeObserver.observe(document.documentElement, { childList: true, attributes: true, characterData: true, subtree: true });
 
             doIt();
 
