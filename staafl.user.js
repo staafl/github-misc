@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "41"};
+        unsafeWindow.staafl = { version: "42"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
@@ -435,13 +435,14 @@ const debug = true;
               resultLinks = $x("//a");
               resultLinks.forEach(function(link) {  // loop over links
                 var oldLink = link.href;
-                if (/^https?:\/\/www.google.co/.test(oldLink) ||
-                    /^https:\/\/encrypted.google.co/.test(oldLink)) {
+                if (isGoogle) {
+                  console.log(oldLink);
                   var matches = /url\?(url|q)=(.+?)&/.exec(oldLink);
                   if (matches != null) {
                     link.href = unescape(matches[2]);
+                    console.log(link.href);
                   }
-                } else if (/^https?:[/][/]l[.]facebook/.test(oldLink)) {
+                } else if (isFacebook) {
                   var matches = /[?&]u=([^&]*)/.exec(oldLink);
                   if (matches != null) {
                     link.href = unescape(matches[1]);
