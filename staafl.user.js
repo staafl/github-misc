@@ -405,7 +405,7 @@ const debug = true;
               }
             });
             
-            const element = isFacebook ? document.getElementById("globalContainer") :
+            const element = //isFacebook ? document.getElementById("globalContainer") :
                 document.documentElement;
                 
             changeObserver.observe(element, { childList: true, attributes: true, characterData: true, subtree: true });
