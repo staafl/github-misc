@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "40"};
+        unsafeWindow.staafl = { version: "39"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
@@ -390,27 +390,23 @@ const debug = true;
               let should = false;
               mutations.forEach(function(mutation) {
                 var namedItem = mutation.target.attributes && mutation.target.attributes.getNamedItem('id');
-                if (mutation.target.nodeName.toLowerCase() == "a") {
-                    should = true;
+                if (isGoogle &&
+                    ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
+                    (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw'))) {
+                  should = true;
+                } else if (isFacebook) {
+                    console.log(mutation.target.nodeName, namedItem && namedItem.value);
+                    if (namedItem && namedItem.value == "content") {
+                        should = true;
+                    }
                 }
-//                if (isGoogle &&
-//                    ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
-//                    (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw'))) {
-//                  should = true;
-//                } else if (isFacebook) {
-//                    console.log(mutation.target.nodeName, namedItem && namedItem.value);
-//                    if (mutation.target.nodeName == 'A' ||
-//                        (namedItem && namedItem.value == "content")) {
-//                        should = true;
-//                    }
-//                }
 
               });
               if (should) {
                 doIt();
               }
             });
-            changeObserver.observe(document.documentElement, { attributes: true });
+            changeObserver.observe(document.documentElement, { childList: true, attributes: true, characterData: true, subtree: true });
 
             doIt();
 
