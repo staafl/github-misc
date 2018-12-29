@@ -63,7 +63,11 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "43"};
+        unsafeWindow.staafl = { version: "44"};
+        
+        if (debug) {
+            console.log("Staafl userscript version " + unsafeWindow.staafl.version);
+        }
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
@@ -396,13 +400,15 @@ const debug = true;
                 const id = namedItem && namedItem.value;
                 const nodeName = mutation.target.nodeName.toUpperCase();
                 
-                console.log(nodeName, id);
+                if (debug) {
+                    console.log(nodeName, id);
+                }
                 
                 if (isGoogle) {
-//                    if ((nodeName == 'BODY' && id== 'gsr') ||
-//                        (nodeName == 'DIV' && id == 'taw')) {
+                    if ((nodeName == 'BODY' && id== 'gsr') ||
+                        (nodeName == 'DIV' && id == 'taw')) {
                       should = true;
-//                    }
+                    }
                 } else if (isFacebook) {
                     if (id == "globalContainer") {
                         should = true;
