@@ -93,7 +93,7 @@ const debug = true;
         }
 
         const { cssUg, cssWhite, cssBlack } = getCss();
-        console.log(location.href);
+
         let filters =
             [
                 {
@@ -404,10 +404,10 @@ const debug = true;
                 doIt();
               }
             });
-            
+
             const element = //isFacebook ? document.getElementById("globalContainer") :
                 document.documentElement;
-                
+
             changeObserver.observe(element, { childList: true, attributes: true, characterData: true, subtree: true });
 
             doIt();
