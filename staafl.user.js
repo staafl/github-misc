@@ -407,6 +407,7 @@ const debug = true;
               resultLinks = $x("//a");
               resultLinks.forEach(function(link) {  // loop over links
                 var oldLink = link.href;
+                console.log(oldLink);
                 if (/^https?:\/\/www.google.co/.test(oldLink) || /^https:\/\/encrypted.google.co/.test(oldLink)) {
                   var matches = /url\?(url|q)=(.+?)&/.exec(oldLink);
                   if (matches != null) {
