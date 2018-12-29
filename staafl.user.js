@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "39"};
+        unsafeWindow.staafl = { version: "40"};
 
         var wall = (location.href + "").indexOf("://www.wall.org") != -1;
         if (wall) {
@@ -384,28 +384,33 @@ const debug = true;
 
         function stripTracking() {
             console.log("here");
+            const isGoogle = ~window.location.href.indexOf("google");
+            const isFacebook = ~window.location.href.indexOf("facebook");
             var changeObserver = new MutationObserver(function(mutations) {
               let should = false;
               mutations.forEach(function(mutation) {
                 var namedItem = mutation.target.attributes && mutation.target.attributes.getNamedItem('id');
-                if (~window.location.href.indexOf("google") &&
-                    ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
-                    (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw'))) {
-                  should = true;
-                } else if (~window.location.href.indexOf("facebook")) {
-                    console.log(mutation.target.nodeName, namedItem && namedItem.value);
-                    if (mutation.target.nodeName == 'A' ||
-                        (namedItem && namedItem.value == "content")) {
-                        should = true;
-                    }
+                if (mutation.target.nodeName.toLowerCase() == "a") {
+                    should = true;
                 }
-                
+//                if (isGoogle &&
+//                    ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
+//                    (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw'))) {
+//                  should = true;
+//                } else if (isFacebook) {
+//                    console.log(mutation.target.nodeName, namedItem && namedItem.value);
+//                    if (mutation.target.nodeName == 'A' ||
+//                        (namedItem && namedItem.value == "content")) {
+//                        should = true;
+//                    }
+//                }
+
               });
               if (should) {
                 doIt();
               }
             });
-            changeObserver.observe(document.documentElement, { childList: true, attributes: true, characterData: true, subtree: true });
+            changeObserver.observe(document.documentElement, { attributes: true });
 
             doIt();
 
@@ -422,7 +427,8 @@ const debug = true;
               resultLinks.forEach(function(link) {  // loop over links
                 var oldLink = link.href;
                 console.log(oldLink);
-                if (/^https?:\/\/www.google.co/.test(oldLink) || /^https:\/\/encrypted.google.co/.test(oldLink)) {
+                if (/^https?:\/\/www.google.co/.test(oldLink) ||
+                    /^https:\/\/encrypted.google.co/.test(oldLink)) {
                   var matches = /url\?(url|q)=(.+?)&/.exec(oldLink);
                   if (matches != null) {
                     link.href = unescape(matches[2]);
