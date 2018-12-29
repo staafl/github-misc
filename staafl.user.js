@@ -387,7 +387,8 @@ const debug = true;
             var changeObserver = new MutationObserver(function(mutations) {
               mutations.forEach(function(mutation) {
                 var namedItem = mutation.target.attributes.getNamedItem('id');
-                if ((mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
+                if (!~window.location.indexOf("google") || 
+                    (mutation.target.nodeName == 'BODY' && namedItem && namedItem.value == 'gsr') ||
                     (mutation.target.nodeName == 'DIV' && namedItem && namedItem.value == 'taw')) {
                   doIt();
                 }
