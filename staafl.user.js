@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "45"};
+        unsafeWindow.staafl = { version: "46"};
         
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -418,11 +418,9 @@ const debug = true;
                   link.removeAttribute('onmousedown');
                 }
                 if (isGoogle) {
-                  console.log(oldLink);
                   var matches = /url\?(url|q)=(.+?)&/.exec(oldLink);
                   if (matches != null) {
                     link.href = unescape(matches[2]);
-                    console.log(link.href);
                   }
                 } else if (isFacebook) {
                   var matches = /[?&]u=([^&]*)/.exec(oldLink);
