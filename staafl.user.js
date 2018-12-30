@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "48"};
+        unsafeWindow.staafl = { version: "49"};
         
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -73,6 +73,11 @@ const debug = true;
 
         let filters =
             [
+                {
+                    patterns: [/spotify[.]com/],
+                    todos: [spotifyTitle],
+                    stop: false
+                },
                 {
                     patterns: [/youtube[.]com/, /youtu[.]be/],
                     todos: [stripYouTubeNotifications],
@@ -348,6 +353,14 @@ const debug = true;
 
         function click(selector, timeout) {
             return doToElement(selector, timeout, function(e) { e.click(); });
+        }
+        
+        function spotifyTitle() {
+            setInterval(function() {
+                if (!~document.title.indexOf("Spotify")) {
+                    document.title = document.title + " - Spotify";
+                }
+            }, 1000);
         }
 
         function stripYouTubeNotifications() {
