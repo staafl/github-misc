@@ -63,8 +63,8 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "49"};
-        
+        unsafeWindow.staafl = { version: "50"};
+
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
         }
@@ -80,7 +80,7 @@ const debug = true;
                 },
                 {
                     patterns: [/youtube[.]com/, /youtu[.]be/],
-                    todos: [stripYouTubeNotifications],
+                    todos: [stripYouTubeNotifications, youtubeClickContinueWatching],
                     stop: false
                 },
                 {
@@ -354,13 +354,46 @@ const debug = true;
         function click(selector, timeout) {
             return doToElement(selector, timeout, function(e) { e.click(); });
         }
-        
+
         function spotifyTitle() {
             setInterval(function() {
                 if (!~document.title.indexOf("Spotify")) {
                     document.title = document.title + " - Spotify";
                 }
             }, 1000);
+        }
+
+        function youtubeClickContinueWatching() {
+            setInterval(function() {
+                for (const elem of document.querySelectorAll(".line-text")) {
+                    if (~elem.innerHTML.indexOf("Video paused") && elem.offsetParent) {
+                        let parent = elem.parentElement;
+                        let button;
+                        while (parent && parent.id !== "main") {
+                            parent = parent.parentElement;
+                        }
+
+                        if (parent) {
+                            button = document.querySelector("ytd-popup-container #confirm-button");
+                            if (button) {
+                                button.click();
+                            }
+                        }
+
+                        // https://openuserjs.org/scripts/Telokis/Youtube_auto_close_popup/source
+                        button = button || document
+                          .querySelector(
+                            ".style-scope.ytd-popup-container>yt-confirm-dialog-renderer .buttons.style-scope.yt-confirm-dialog-renderer>yt-button-renderer#confirm-button");
+
+                        if (button && button.offsetParent && elem.offsetParent) {
+                          console.log("Clicking YouTube confirm button!");
+                          console.log(button);
+                          button.click();
+                        }
+                    }
+                }
+
+            }, 5000);
         }
 
         function stripYouTubeNotifications() {
@@ -385,11 +418,11 @@ const debug = true;
 
                 const id = namedItem && namedItem.value;
                 const nodeName = mutation.target.nodeName.toUpperCase();
-                
+
                 if (debug) {
                     // console.log(nodeName, id);
                 }
-                
+
                 if (isGoogle) {
                     if ((nodeName == 'BODY' && id == 'gsr') ||
                         (nodeName == 'DIV' && id == 'taw') ||
