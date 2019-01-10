@@ -16,7 +16,7 @@
 // @grant GM_listValues
 // @grant GM_getResourceText
 // @grant GM_getResourceURL
-// @grant GM_log
+s// @grant GM_log
 // @grant GM_openInTab
 // @grant GM_setClipboard
 // @grant GM_info
@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "50"};
+        unsafeWindow.staafl = { version: "51"};
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -480,6 +480,9 @@ const debug = true;
                 if (/:[/][/](www[.])?reddit[.]com/.test(link.href)) {
                     // console.log(link.href);
                     link.href = link.href.replace(/(www[.])?reddit[.]com/, "old.reddit.com");
+                }
+                if (link.href != oldLink) {
+                    console.log(`{oldLink} -> {link.href}`);
                 }
               }]);
             }
