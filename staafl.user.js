@@ -482,7 +482,7 @@ const debug = true;
                     link.href = link.href.replace(/(www[.])?reddit[.]com/, "old.reddit.com");
                 }
                 if (link.href != oldLink) {
-                    console.log(`{oldLink} -> {link.href}`);
+                    console.log(`${oldLink} -> ${link.href}`);
                 }
               }]);
             }
