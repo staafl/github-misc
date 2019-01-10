@@ -16,7 +16,7 @@
 // @grant GM_listValues
 // @grant GM_getResourceText
 // @grant GM_getResourceURL
-s// @grant GM_log
+// @grant GM_log
 // @grant GM_openInTab
 // @grant GM_setClipboard
 // @grant GM_info
