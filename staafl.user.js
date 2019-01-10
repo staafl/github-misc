@@ -470,7 +470,7 @@ const debug = true;
                     link.href = unescape(matches[2]);
                   }
                 } else if (isFacebook) {
-                  var matches = /l[.]facebook[.]com/l[.]php[^?&]*[?&]u=([^&]*)/.exec(oldLink);
+                  var matches = /l[.]facebook[.]com/l[.]php.*[?&]u=([^&]*)/.exec(oldLink);
                   if (matches != null) {
                     link.href = unescape(matches[1]);
                   }
