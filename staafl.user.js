@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "51"};
+        unsafeWindow.staafl = { version: "52"};
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -88,6 +88,11 @@ const debug = true;
                     todos: [stripTracking],
                     stop: false
                 },
+                {
+                    patterns: [/facebook.com/],
+                    todos: [showScrolling],
+                    stop: false,
+                }
 //                {
 //                    patterns: [/facebook[.]com[/]?$/],
 //                    todos: [redirect("https://www.facebook.com/messages")],
@@ -207,6 +212,28 @@ const debug = true;
             }
             if (matched && filter.stop) {
                 break;
+            }
+        }
+
+        function showScrolling() {
+            const div = document.createElement("div");
+            div.style.position = "fixed";
+            div.style.fontSize = "20pt";
+            div.style.backgroundColor = "white";
+            div.style.color = "black";
+            div.style.left = "20px";
+            div.style.top = "32px";
+            div.style.width = "120px";
+            div.style.height = "32px";
+            div.style.zIndex = 100000;
+            div.style.textAlign = "center";
+            window.addEventListener("scroll", update);
+            document.body.appendChild(div);
+            update();
+
+            function update(e) {
+                div.innerText = Math.floor(window.scrollY/1000) + "kpx";
+                div.style.backgroundColor = window.scrollY > 10000 ? "red" : "white";
             }
         }
 
