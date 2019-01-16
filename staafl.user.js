@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "52"};
+        unsafeWindow.staafl = { version: "53"};
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
