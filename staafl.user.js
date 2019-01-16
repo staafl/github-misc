@@ -92,7 +92,7 @@ const debug = true;
                     patterns: [/facebook.com/],
                     todos: [showScrolling],
                     stop: false,
-                }
+                },
 //                {
 //                    patterns: [/facebook[.]com[/]?$/],
 //                    todos: [redirect("https://www.facebook.com/messages")],
