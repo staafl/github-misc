@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "53"};
+        unsafeWindow.staafl = { version: "54"};
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -520,12 +520,6 @@ const debug = true;
            let cssUg = " \
                body, .jg5ks, ._1eAgg \
                { \
-                   background: black !important; \
-               } \
-    \
-               #canvas > div \
-               { \
-                   z-index: -1 !important; \
                    background: black !important; \
                } \
     \
