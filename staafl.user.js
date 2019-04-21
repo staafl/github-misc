@@ -74,6 +74,11 @@ const debug = true;
         let filters =
             [
                 {
+                    patterns: [/udemy[.]com[/].*[/]learn[/]lecture[/]/],
+                    todos: [udemyStretch],
+                    stop: true
+                },
+                {
                     patterns: [/spotify[.]com/],
                     todos: [spotifyTitle],
                     stop: false
@@ -430,6 +435,16 @@ const debug = true;
                 }
 
             }, 1000);
+        }
+
+        function udemyStretch() {
+            var interval = setInterval(function() {
+                var toStretch = document.querySelectorAll('div[class^="curriculum-item-view--content-container-"] > div:nth-child(1)')[0];
+                if (toStretch) {
+                    toStretch.style.maxHeight = "1000px"
+                    clearInterval(interval);
+                }
+                }, 500);
         }
 
         function stripTracking() {
