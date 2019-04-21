@@ -63,7 +63,7 @@ const debug = true;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "56"};
+        unsafeWindow.staafl = { version: "57"};
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -439,9 +439,11 @@ const debug = true;
 
         function udemyStretch() {
             var interval = setInterval(function() {
-                var toStretch = document.querySelectorAll('div[class^="app--curriculum-item--theatre-"] > div:nth-child(1)')[0];
-                if (toStretch) {
-                    toStretch.style.maxHeight = "1000px"
+                var toStretch1 = document.querySelectorAll('div[class^="app--curriculum-item--theatre-"] > div:nth-child(1)')[0];
+                var toStretch2 = document.querySelectorAll('div[class^="curriculum-item-view--content-container-"] > div:nth-child(1)')[0];
+                if (toStretch1 && toStretch2) {
+                    toStretch1.style.maxHeight = "1000px"
+                    toStretch2.style.maxHeight = "1000px"
                     clearInterval(interval);
                 }
                 }, 500);
