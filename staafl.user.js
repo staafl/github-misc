@@ -119,7 +119,7 @@ const debug = true;
                             manip("button[type='submit']", e => e.disabled = null),
                             focus("#login-form-password"),
 
-                            type("input[name='user']", "vnikolo"),
+                            //type("input[name='user']", "vnikolo"),
                             focus("input[name='user']"),
                             manip("#remember-me", e => e.checked = true),
 
