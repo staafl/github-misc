@@ -43,7 +43,7 @@ let XHRProxy;
                     return this.xhr[prop];
                 },
                 set: function(value) {
-                    this.xhr.timeout = value;
+                    this.xhr[prop] = value;
                 }
             });
         }
@@ -128,6 +128,13 @@ let XHRProxy;
     };
 
     window.XMLHttpRequest = XHRProxy;
+    
+                XHRProxy.addInterceptor(function(method, url, responseText, status) {
+                console.log(url);
+                if (/duolingo[.]com.*sessions$/.test(url)) {
+                    window.alert(responseText.slice(0, 100));
+                }
+            });
 
 })(window);
 (function() {
@@ -164,7 +171,7 @@ let XHRProxy;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "58"};
+        unsafeWindow.staafl = { version: "59"};
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -328,6 +335,7 @@ let XHRProxy;
         
         function duolingoIntercept() {
             XHRProxy.addInterceptor(function(method, url, responseText, status) {
+                console.log(url);
                 if (/duolingo[.]com.*sessions$/.test(url)) {
                     window.alert(responseText.slice(0, 100));
                 }
