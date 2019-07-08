@@ -29,118 +29,87 @@
 
 /* jshint esversion: 6, multistr: true */
 const debug = true;
-let XHRProxy;
-(function(window) {
 
-    var OriginalXHR = XMLHttpRequest;
 
-    XHRProxy = function() {
-        this.xhr = new OriginalXHR();
 
-        function delegate(prop) {
-            Object.defineProperty(this, prop, {
-                get: function() {
-                    return this.xhr[prop];
-                },
-                set: function(value) {
-                    this.xhr[prop] = value;
+funkyFunc   = ( (<><![CDATA[
+
+
+    DEBUG           = false;
+    //--- This is where we will put the data we scarf. It will be a FIFO stack.
+    payloadArray    = [];   //--- PHASE 3a
+
+    (function (open) {
+
+        XMLHttpRequest.prototype.open = function (method, url, async, user, pass)
+        {
+            if (/duolingo[.]com/.test(window.location.href) && /sessions$/.test(url)) {
+
+            this.addEventListener ("readystatechange", function (evt)
+            {
+                if (this.readyState == 4  &&  this.status == 200)  //-- Done, & status "OK".
+                {
+
+                    var jsonObj = null;
+                    try {
+                        jsonObj = JSON.parse (this.responseText);   // FF code.  Chrome??
+                    }
+                    catch (err) {
+                        //if (DEBUG)  console.log (err);
+                    }
+                    window.alert(JSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));
+                    //if (DEBUG)  console.log (this.readyState, this.status, this.responseText);
+
+                    /******************************************************************************
+                    *******************************************************************************
+                    **  PHASE 2:    Filter as much as possible, at this stage.
+                    **              For this site, jsonObj should be an object like so:
+                    **                  { s="1bjqo", a=[15], tau="0"}
+                    **              Where a is an array of objects, like:
+                    **                  a   417387
+                    **                  p   1
+                    **                  t   826
+                    **                  w   "bart69"
+                    **                  x   7
+                    *******************************************************************************
+                    *******************************************************************************
+                    */
+                    //if (DEBUG)  console.log (jsonObj);
+                    if (jsonObj  &&  jsonObj.a  &&  jsonObj.a.length > 1) {
+                        /*--- For demonstration purposes, we will only get the 2nd row in
+                            the `a` array. (Probably stands for "auction".)
+                        */
+                        payloadArray.push (jsonObj.a[1]);
+                        if (DEBUG)  console.log (jsonObj.a[1]);
+                    }
+                    //--- Done at this stage!  Rest is up to the GM scope.
                 }
-            });
-        }
-        delegate.call(this, 'timeout');
-        delegate.call(this, 'responseType');
-        delegate.call(this, 'withCredentials');
-        delegate.call(this, 'onerror');
-        delegate.call(this, 'onabort');
-        delegate.call(this, 'onloadstart');
-        delegate.call(this, 'onloadend');
-        delegate.call(this, 'onprogress');
-    };
-    XHRProxy.prototype.open = function(method, url, async, username, password) {
-        var ctx = this;
-
-        function applyInterceptors(src) {
-            ctx.responseText = ctx.xhr.responseText;
-            for (var i=0; i < XHRProxy.interceptors.length; i++) {
-                var applied = XHRProxy.interceptors[i](method, url, ctx.responseText, ctx.xhr.status);
-                if (applied !== undefined) {
-                    ctx.responseText = applied;
-                }
-            }
-        }
-        function setProps() {
-            ctx.readyState = ctx.xhr.readyState;
-            ctx.responseText = ctx.xhr.responseText;
-            ctx.responseURL = ctx.xhr.responseURL;
-            ctx.responseXML = ctx.xhr.responseXML;
-            ctx.status = ctx.xhr.status;
-            ctx.statusText = ctx.xhr.statusText;
-        }
-
-        this.xhr.open(method, url, async, username, password);
-
-        this.xhr.onload = function(evt) {
-            if (ctx.onload) {
-                setProps();
-
-                if (ctx.xhr.readyState === 4) {
-                     applyInterceptors();
-                }
-                return ctx.onload(evt);
-            }
+            }, false);
+}
+            open.call (this, method, url, async, user, pass);
         };
-        this.xhr.onreadystatechange = function (evt) {
-            if (ctx.onreadystatechange) {
-                setProps();
+    } ) (XMLHttpRequest.prototype.open);
+]]></>).toString () );
 
-                if (ctx.xhr.readyState === 4) {
-                     applyInterceptors();
-                }
-                return ctx.onreadystatechange(evt);
-            }
-        };
-    };
-    XHRProxy.prototype.addEventListener = function(event, fn) {
-        return this.xhr.addEventListener(event, fn);
-    };
-    XHRProxy.prototype.send = function(data) {
-        return this.xhr.send(data);
-    };
-    XHRProxy.prototype.abort = function() {
-        return this.xhr.abort();
-    };
-    XHRProxy.prototype.getAllResponseHeaders = function() {
-        return this.xhr.getAllResponseHeaders();
-    };
-    XHRProxy.prototype.getResponseHeader = function(header) {
-        return this.xhr.getResponseHeader(header);
-    };
-    XHRProxy.prototype.setRequestHeader = function(header, value) {
-        return this.xhr.setRequestHeader(header, value);
-    };
-    XHRProxy.prototype.overrideMimeType = function(mimetype) {
-        return this.xhr.overrideMimeType(mimetype);
-    };
 
-    XHRProxy.interceptors = [];
-    XHRProxy.addInterceptor = function(fn) {
-        this.interceptors.push(fn);
-    };
+function addJS_Node (text, s_URL)
+{
+    var scriptNode                      = document.createElement ('script');
+    scriptNode.type                     = "text/javascript";
+    if (text)  scriptNode.textContent   = text;
+    if (s_URL) scriptNode.src           = s_URL;
 
-    window.XMLHttpRequest = XHRProxy;
-    
-                XHRProxy.addInterceptor(function(method, url, responseText, status) {
-                console.log(url);
-                if (/duolingo[.]com.*sessions$/.test(url)) {
-                    window.alert(responseText.slice(0, 100));
-                }
-            });
+    var targ    = document.getElementsByTagName('head')[0] || d.body || d.documentElement;
+    targ.appendChild (scriptNode);
+}
 
-})(window);
+addJS_Node (funkyFunc);
+
+
 (function() {
     "use strict";
 
-    if (typeof inAjax === "undefined") {
+    if (typeof inAjax === "undefined" && !~window.location.href.indexOf("duolingo")) {
         var baseUrl = "https://raw.githubusercontent.com/staafl/" +
             "github-misc/master/staafl.user.js?timestamp=";
         GM_xmlhttpRequest ( {
@@ -171,7 +140,7 @@ let XHRProxy;
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "59"};
+        unsafeWindow.staafl = { version: "60"};
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -332,14 +301,9 @@ let XHRProxy;
                 break;
             }
         }
-        
+
         function duolingoIntercept() {
-            XHRProxy.addInterceptor(function(method, url, responseText, status) {
-                console.log(url);
-                if (/duolingo[.]com.*sessions$/.test(url)) {
-                    window.alert(responseText.slice(0, 100));
-                }
-            });
+
         }
 
         function showScrolling() {
