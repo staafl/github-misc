@@ -328,7 +328,7 @@ let XHRProxy;
         
         function duolingoIntercept() {
             XHRProxy.addInterceptor(function(method, url, responseText, status) {
-                if (/duolingo[.]com.*sessions$/test(url)) {
+                if (/duolingo[.]com.*sessions$/.test(url)) {
                     window.alert(responseText.slice(0, 100));
                 }
             });
