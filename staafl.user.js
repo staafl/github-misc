@@ -34,7 +34,6 @@ const debug = true;
 
 funkyFunc   = ( (<><![CDATA[
 
-
     DEBUG           = false;
     //--- This is where we will put the data we scarf. It will be a FIFO stack.
     payloadArray    = [];   //--- PHASE 3a
@@ -43,7 +42,14 @@ funkyFunc   = ( (<><![CDATA[
 
         XMLHttpRequest.prototype.open = function (method, url, async, user, pass)
         {
-            if (/duolingo[.]com/.test(window.location.href) && /sessions$/.test(url)) {
+            if (/duolingo[.]com/.test(window.location.href) && /sessions$/.test(url))
+            {
+            }
+            else
+            {
+
+                return open.call(this, method, url, async, user, pass);
+            }
 
             this.addEventListener ("readystatechange", function (evt)
             {
@@ -57,7 +63,17 @@ funkyFunc   = ( (<><![CDATA[
                     catch (err) {
                         //if (DEBUG)  console.log (err);
                     }
-                    window.alert(JSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));
+                    //window.alert(JSON.stringify(jsonObj.challenges));
+                    //console.log(JSON.stringify(jsonObj.challenges));
+                    var types = jsonObj.challenges.map(x => x.type);
+                    // window.alert(JSON.stringify(types))
+                    var mc = jsonObj.challenges.filter(x => x.type == "judge").map(x => x.metadata.options.filter(y => y.correct)[0].sentence + ": " + x.prompt);
+                    var listen = jsonObj.challenges.filter(x => x.type == "listenTap" || x.type == "listen").map(x => x.prompt + ": " + x.metadata.solution_translation);
+                    // window.alert(listen.join("\n\n"));
+                    var trans = jsonObj.challenges.filter(x => x.type == "translate").map(x => x.prompt + ": " + x.correctSolutions[0]);
+                    window.alert(mc.concat(listen).concat(trans).join("\n\n"));
+                    // navigator.clipboard.writeText(JSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));
+                    // window.alert(JSON.stringify(jsonObj.challenges.mJSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));ap(x => (x.prompt || "").slice(0, 100))));
                     //if (DEBUG)  console.log (this.readyState, this.status, this.responseText);
 
                     /******************************************************************************
@@ -85,7 +101,7 @@ funkyFunc   = ( (<><![CDATA[
                     //--- Done at this stage!  Rest is up to the GM scope.
                 }
             }, false);
-}
+
             open.call (this, method, url, async, user, pass);
         };
     } ) (XMLHttpRequest.prototype.open);
@@ -102,8 +118,6 @@ function addJS_Node (text, s_URL)
     var targ    = document.getElementsByTagName('head')[0] || d.body || d.documentElement;
     targ.appendChild (scriptNode);
 }
-
-addJS_Node (funkyFunc);
 
 
 (function() {
@@ -303,7 +317,7 @@ addJS_Node (funkyFunc);
         }
 
         function duolingoIntercept() {
-
+            addJS_Node (funkyFunc);
         }
 
         function showScrolling() {
