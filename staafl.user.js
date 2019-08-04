@@ -51,7 +51,7 @@ funkyFunc   = ( (<><![CDATA[
                 return open.call(this, method, url, async, user, pass);
             }
 
-            this.addEventListener ("readystatechange", function (evt)
+            this.addEventListener ("readystatechange", async function (evt)
             {
                 if (this.readyState == 4  &&  this.status == 200)  //-- Done, & status "OK".
                 {
@@ -65,13 +65,25 @@ funkyFunc   = ( (<><![CDATA[
                     }
                     //window.alert(JSON.stringify(jsonObj.challenges));
                     //console.log(JSON.stringify(jsonObj.challenges));
-                    var types = jsonObj.challenges.map(x => x.type);
+                    // var types = jsonObj.challenges.map(x => x.type);
                     // window.alert(JSON.stringify(types))
-                    var mc = jsonObj.challenges.filter(x => x.type == "judge").map(x => x.metadata.options.filter(y => y.correct)[0].sentence + ": " + x.prompt);
-                    var listen = jsonObj.challenges.filter(x => x.type == "listenTap" || x.type == "listen").map(x => x.prompt + ": " + x.metadata.solution_translation);
+                    var mc = jsonObj.challenges.filter(x => x.type == "judge").map(x => x.metadata.options.filter(y => y.correct)[0].sentence + " <=> " + x.prompt);
+                    var listen = jsonObj.challenges.filter(x => x.type == "listenTap" || x.type == "listen").map(x => x.prompt + " <=> " + x.metadata.solution_translation);
                     // window.alert(listen.join("\n\n"));
-                    var trans = jsonObj.challenges.filter(x => x.type == "translate").map(x => x.prompt + ": " + x.correctSolutions[0]);
-                    window.alert(mc.concat(listen).concat(trans).join("\n\n"));
+                    var trans = jsonObj.challenges.filter(x => x.type == "translate").map(x => x.prompt + " <=> " + x.correctSolutions[0]);
+                    var all = jsonObj.trackingProperties.skill_name + "\n\n" + mc.concat(listen).concat(trans).join("\n\n");
+                    try {
+                    await fetch(
+                        "http://127.0.0.1:17723/duolingo",
+                        {
+                            method: "POST",
+                            body: all
+                        });
+                    }
+                    catch (e) {
+                        window.alert(e.message);
+                    }
+                    window.alert(all);
                     // navigator.clipboard.writeText(JSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));
                     // window.alert(JSON.stringify(jsonObj.challenges.mJSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));ap(x => (x.prompt || "").slice(0, 100))));
                     //if (DEBUG)  console.log (this.readyState, this.status, this.responseText);
@@ -115,7 +127,7 @@ function addJS_Node (text, s_URL)
     if (text)  scriptNode.textContent   = text;
     if (s_URL) scriptNode.src           = s_URL;
 
-    var targ    = document.getElementsByTagName('head')[0] || d.body || d.documentElement;
+    var targ    = document.getElementsByTagName('head')[0] || document.body || document.documentElement;
     targ.appendChild (scriptNode);
 }
 
