@@ -83,7 +83,7 @@ funkyFunc   = ( (<><![CDATA[
                     catch (e) {
                         window.alert(e.message);
                     }
-                    window.alert(all);
+                    //window.alert(all);
                     // navigator.clipboard.writeText(JSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));
                     // window.alert(JSON.stringify(jsonObj.challenges.mJSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));ap(x => (x.prompt || "").slice(0, 100))));
                     //if (DEBUG)  console.log (this.readyState, this.status, this.responseText);
