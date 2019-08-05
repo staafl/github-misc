@@ -71,7 +71,7 @@ funkyFunc   = ( (<><![CDATA[
                     var listen = jsonObj.challenges.filter(x => x.type == "listenTap" || x.type == "listen").map(x => x.prompt + " <=> " + x.metadata.solution_translation);
                     // window.alert(listen.join("\n\n"));
                     var trans = jsonObj.challenges.filter(x => x.type == "translate").map(x => x.prompt + " <=> " + x.correctSolutions[0]);
-                    var all = jsonObj.trackingProperties.skill_name + "\n\n" + mc.concat(listen).concat(trans).join("\n\n");
+                    var all = jsonObj.trackingProperties.skill_name + " (" + jsonObj.trackingProperties.level_index + ")\n\n" + mc.concat(listen).concat(trans).join("\n\n");
                     try {
                     await fetch(
                         "http://127.0.0.1:17723/duolingo",
