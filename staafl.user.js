@@ -32,102 +32,106 @@ const debug = true;
 
 
 
-funkyFunc   = ( (<><![CDATA[
+funkyFunc = ((<><![CDATA[
 
-    DEBUG           = false;
-    //--- This is where we will put the data we scarf. It will be a FIFO stack.
-    payloadArray    = [];   //--- PHASE 3a
+    DEBUG = false;
 
-    (function (open) {
+    (function (originalOpen) {
 
-        XMLHttpRequest.prototype.open = function (method, url, async, user, pass)
-        {
-            if (/duolingo[.]com/.test(window.location.href) && /sessions$/.test(url))
-            {
-            }
-            else
-            {
+        XMLHttpRequest.prototype.open =
+            function (method, url, async, user, pass) {
 
-                return open.call(this, method, url, async, user, pass);
+            if (!/duolingo[.]com/.test(window.location.href) ||
+                !/sessions$/.test(url)) {
+                return originalOpen.call(this, method, url, async, user, pass);
             }
 
-            this.addEventListener ("readystatechange", async function (evt)
-            {
-                if (this.readyState == 4  &&  this.status == 200)  //-- Done, & status "OK".
-                {
+            this.addEventListener(
+                "readystatechange",
+                async function (evt) {
 
+                if (this.readyState == 4 && this.status == 200) {
                     var jsonObj = null;
                     try {
-                        jsonObj = JSON.parse (this.responseText);   // FF code.  Chrome??
-                    }
-                    catch (err) {
+                        jsonObj = JSON.parse(this.responseText);
+                    } catch (err) {
                         //if (DEBUG)  console.log (err);
                     }
-                    //window.alert(JSON.stringify(jsonObj.challenges));
-                    //console.log(JSON.stringify(jsonObj.challenges));
+
+                    // window.alert(JSON.stringify(jsonObj.challenges));
+                    // console.log(JSON.stringify(jsonObj.challenges));
                     // var types = jsonObj.challenges.map(x => x.type);
                     // window.alert(JSON.stringify(types))
-                    var mc = jsonObj.challenges.filter(x => x.type == "judge").map(x => x.metadata.options.filter(y => y.correct)[0].sentence + " <=> " + x.prompt);
-                    var listen = jsonObj.challenges.filter(x => x.type == "listenTap" || x.type == "listen").map(x => x.prompt + " <=> " + x.metadata.solution_translation);
+
+                    var multipleChoice = jsonObj
+                        .challenges
+                        .filter(x => x.type == "judge")
+                        .map(x =>
+                            x.metadata
+                             .options
+                             .filter(y => y.correct)[0]
+                             .sentence
+                            + " <=> "
+                            + x.prompt);
+
+                    var listen = jsonObj
+                        .challenges
+                        .filter(x => x.type == "listenTap" || x.type == "listen")
+                        .map(x => x.prompt + " <=> " + x.metadata.solution_translation);
+
                     // window.alert(listen.join("\n\n"));
-                    var trans = jsonObj.challenges.filter(x => x.type == "translate").map(x => x.prompt + " <=> " + x.correctSolutions[0]);
-                    var all = jsonObj.trackingProperties.skill_name + " (" + jsonObj.trackingProperties.level_index + ")\n\n" + mc.concat(listen).concat(trans).join("\n\n");
+
+                    var trans = jsonObj
+                        .challenges
+                        .filter(x => x.type == "translate")
+                        .map(x => x.prompt + " <=> " + x.correctSolutions[0]);
+
+                    var all = jsonObj
+                        .trackingProperties.skill_name +
+                        " (" + jsonObj.trackingProperties.level_index + ")\n\n" +
+                        multipleChoice.concat(listen).concat(trans).join("\n\n");
+
                     try {
-                    await fetch(
-                        "http://127.0.0.1:17723/duolingo",
-                        {
-                            method: "POST",
-                            body: all
-                        });
-                    }
-                    catch (e) {
+                        await fetch(
+                            "http://127.0.0.1:17723/duolingo",
+                            {
+                                method: "POST",
+                                body: all
+                            });
+                    } catch (e) {
                         window.alert(e.message);
                     }
+
                     //window.alert(all);
                     // navigator.clipboard.writeText(JSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));
                     // window.alert(JSON.stringify(jsonObj.challenges.mJSON.stringify(jsonObj.challenges.map(x => (x.prompt || "").slice(0, 100))));ap(x => (x.prompt || "").slice(0, 100))));
                     //if (DEBUG)  console.log (this.readyState, this.status, this.responseText);
-
-                    /******************************************************************************
-                    *******************************************************************************
-                    **  PHASE 2:    Filter as much as possible, at this stage.
-                    **              For this site, jsonObj should be an object like so:
-                    **                  { s="1bjqo", a=[15], tau="0"}
-                    **              Where a is an array of objects, like:
-                    **                  a   417387
-                    **                  p   1
-                    **                  t   826
-                    **                  w   "bart69"
-                    **                  x   7
-                    *******************************************************************************
-                    *******************************************************************************
-                    */
-                    //if (DEBUG)  console.log (jsonObj);
-                    if (jsonObj  &&  jsonObj.a  &&  jsonObj.a.length > 1) {
-                        /*--- For demonstration purposes, we will only get the 2nd row in
-                            the `a` array. (Probably stands for "auction".)
-                        */
-                        payloadArray.push (jsonObj.a[1]);
-                        if (DEBUG)  console.log (jsonObj.a[1]);
-                    }
-                    //--- Done at this stage!  Rest is up to the GM scope.
                 }
             }, false);
 
-            open.call (this, method, url, async, user, pass);
+            originalOpen.call(this, method, url, async, user, pass);
         };
-    } ) (XMLHttpRequest.prototype.open);
-]]></>).toString () );
+    })(XMLHttpRequest.prototype.open);
+]]></>).toString());
 
 
-function addJS_Node (text, s_URL)
-{
-    var scriptNode                      = document.createElement ('script');
-    scriptNode.type                     = "text/javascript";
-    if (text)  scriptNode.textContent   = text;
-    if (s_URL) scriptNode.src           = s_URL;
+function addJS_Node(text, s_URL) {
+    var scriptNode = document.createElement ('script');
+    scriptNode.type = "text/javascript";
 
-    var targ    = document.getElementsByTagName('head')[0] || document.body || document.documentElement;
+    if (text) {
+        scriptNode.textContent = text;
+    }
+
+    if (s_URL) {
+        scriptNode.src = s_URL;
+    }
+
+    var targ =
+        document.getElementsByTagName('head')[0] ||
+        document.body ||
+        document.documentElement;
+
     targ.appendChild (scriptNode);
 }
 
@@ -135,13 +139,17 @@ function addJS_Node (text, s_URL)
 (function() {
     "use strict";
 
-    if (typeof inAjax === "undefined" && !~window.location.href.indexOf("duolingo")) {
-        var baseUrl = "https://raw.githubusercontent.com/staafl/" +
+    if (typeof inAjax === "undefined" &&
+        !~window.location.href.indexOf("duolingo")) {
+
+        var baseUrl =
+            "https://raw.githubusercontent.com/staafl/" +
             "github-misc/master/staafl.user.js?timestamp=";
-        GM_xmlhttpRequest ( {
+        // 'https://github.com/staafl/github-misc/raw/master/staafl.user.js',
+
+        GM_xmlhttpRequest({
             method: 'GET',
             url: baseUrl + new Date().getTime(),
-            // 'https://github.com/staafl/github-misc/raw/master/staafl.user.js',
             onload: function (responseDetails) {
                 if (responseDetails.status == 200) {
                     try {
@@ -157,7 +165,7 @@ function addJS_Node (text, s_URL)
                     doActualStuff();
                 }
             }
-        } );
+        });
         return;
     }
     else {
