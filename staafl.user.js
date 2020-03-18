@@ -264,7 +264,7 @@ function addJS_Node(text, s_URL) {
                 },
                 {
                     // UG
-                    patterns: [/ultimate-guitar[.]com[/]tab.*official/, /ultimate-guitar[.]com[/]tab.*pro_[0-9]/],
+                    patterns: [/xultimate-guitar[.]com[/]tab.*official/, /ultimate-guitar[.]com[/]tab.*pro_[0-9]/],
                     todos: [addStyle(cssUg)],
                     stop: true
                 },
