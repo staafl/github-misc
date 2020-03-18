@@ -174,7 +174,7 @@ function addJS_Node(text, s_URL) {
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "61"};
+        unsafeWindow.staafl = { version: "62" };
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -270,7 +270,7 @@ function addJS_Node(text, s_URL) {
                 },
                 {
                     // black
-                    patterns: [/ultimate-guitar[.]com[/]tab/],
+                    patterns: [/xultimate-guitar[.]com[/]tab/],
                     todos: [addStyle(cssBlack)],
                     stop: true
                 },
