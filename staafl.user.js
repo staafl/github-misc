@@ -174,7 +174,7 @@ function addJS_Node(text, s_URL) {
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "63" };
+        unsafeWindow.staafl = { version: "64" };
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -319,7 +319,7 @@ function addJS_Node(text, s_URL) {
                     stop: false
                 },
                 {
-                    patterns: /e-edu.nbu.bg[/]enrol[/]index.php[?]/,
+                    patterns: /e-edu[.]nbu[.]bg[/]enrol[/]index[.]php[?]?/,
                     todos: [() => {
                         setInterval(() => {
                             try {
@@ -334,7 +334,7 @@ function addJS_Node(text, s_URL) {
                     }]
                 },
                 {
-                    patterns: /e-edu.nbu.bg[/]login[/]index.php[?]/,
+                    patterns: /e-edu[.]nbu[.]bg[/]login[/]index[.]php[?]?/,
                     todos: [() => {
                         setInterval(() => {
                             try {
