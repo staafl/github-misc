@@ -174,7 +174,7 @@ function addJS_Node(text, s_URL) {
 
     function doActualStuff() {
 // inc:: version: ["](.*?)["] => version: "#{$1+1}"
-        unsafeWindow.staafl = { version: "62" };
+        unsafeWindow.staafl = { version: "63" };
 
         if (debug) {
             console.log("Staafl userscript version " + unsafeWindow.staafl.version);
@@ -317,6 +317,34 @@ function addJS_Node(text, s_URL) {
                     patterns: [/google.*[/]search.*q=weather/],
                     todos: [click("#wob_rain", 1000)],
                     stop: false
+                },
+                {
+                    patterns: /e-edu.nbu.bg[/]enrol[/]index.php[?]/,
+                    todos: [() => {
+                        setInterval(() => {
+                            try {
+                                document.getElementById("loginbtn").click()
+                            } catch (e) {
+                            }
+                        }, 1000);
+                        /*const match = location.href.match("id=([0-9]+)") || []
+                        let id = match[1];
+                        sessionStorage["staafl_redirect_id"] = id;
+                        location.href = "https://e-edu.nbu.bg/login/index.php?;*/
+                    }]
+                },
+                {
+                    patterns: /e-edu.nbu.bg[/]login[/]index.php[?]/,
+                    todos: [() => {
+                        setInterval(() => {
+                            try {
+                                if (document.getElementById("password").value) {
+                                    document.getElementById("loginbtn").click()
+                                }
+                            } catch (e) {
+                            }
+                        }, 1000);
+                    }]
                 }
             ];
 
