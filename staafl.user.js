@@ -321,30 +321,76 @@ function addJS_Node(text, s_URL) {
                 {
                     patterns: [/e-edu[.]nbu[.]bg[/]enrol[/]index[.]php[?]?/],
                     todos: [() => {
-                        setInterval(() => {
+                        let interval = setInterval(() => {
                             try {
+                                let form = [...document.forms].find(x => x.action === "https://e-edu.nbu.bg/login/index.php")
+                                form.submit()
+                                clearInterval(interval)
+                            } catch (e) {
+                            }
+                            /*try {
                                 document.getElementById("loginbtn").click()
                             } catch (e) {
                             }
-                        }, 1000);
+                            try {
+                                // action=https://e-edu.nbu.bg/login/index.php
+                                document.getElementsByTagName("form")[0].submit()
+                            } catch (e) {
+                            }*/
+                        }, 200);
                         /*const match = location.href.match("id=([0-9]+)") || []
                         let id = match[1];
                         sessionStorage["staafl_redirect_id"] = id;
                         location.href = "https://e-edu.nbu.bg/login/index.php?;*/
-                    }]
+                    }],
+                    stop: true
                 },
                 {
                     patterns: [/e-edu[.]nbu[.]bg[/]login[/]index[.]php[?]?/],
                     todos: [() => {
-                        setInterval(() => {
+                        let interval = setInterval(() => {
                             try {
+                                if (document.getElementById("password").value) {
+                                    let form = [...document.forms].find(x => x.action === "https://e-edu.nbu.bg/login/index.php")
+                                    form.submit()
+                                    clearInterval(interval)
+                                    
+                                }
+                            } catch (e) {
+                            }
+                            /*try {
                                 if (document.getElementById("password").value) {
                                     document.getElementById("loginbtn").click()
                                 }
                             } catch (e) {
                             }
-                        }, 1000);
-                    }]
+                            try {
+                                // action=https://e-edu.nbu.bg/login/index.php
+                                document.getElementById("login").submit()
+                            } catch (e) {
+                            }*/
+                        }, 200);
+                    }],
+                    stop: true
+                },
+                {
+                    patterns: [/e-edu[.]nbu[.]bg[/]?/],
+                    todos: [() => {
+                        let interval = setInterval(() => {
+                            try {
+                                let form = [...document.forms].find(x => x.action === "https://e-edu.nbu.bg/login/index.php")
+                                form.submit()
+                                clearInterval(interval)
+                            } catch (e) {
+                            }
+
+                            //try {
+                            //    document.getElementById("login").submit()
+                            //} catch (e) {
+                            //}
+                        }, 200);
+                    }],
+                    stop: true
                 }
             ];
 
